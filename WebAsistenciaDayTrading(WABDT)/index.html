@@ -34,16 +34,31 @@
                         <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     
+                    <!-- Menú Desplegable con Submenús Laterales en Landing -->
                     <div id="landing-dropdown" class="hidden absolute left-0 mt-2 w-56 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl z-50 py-1.5">
                         <div class="px-3.5 py-1 text-[10px] uppercase tracking-wider text-slate-500 font-semibold">Categorías</div>
+                        
+                        <!-- Forex -->
                         <div class="relative group">
                             <button class="w-full text-left px-3.5 py-2 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400 flex items-center justify-between transition-colors">
-                                <span class="text-[10px] text-slate-500">◀</span>
                                 <span>💱 Forex</span>
+                                <span class="text-[10px] text-slate-500">▶</span>
                             </button>
-                            <div class="hidden group-hover:block absolute right-full top-0 w-44 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl py-1 mr-1">
+                            <div class="hidden group-hover:block absolute left-full top-0 w-44 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl py-1 ml-1 z-50">
                                 <button onclick="openAuthModal('login')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">EUR / USD</button>
                                 <button onclick="openAuthModal('login')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">GBP / USD</button>
+                            </div>
+                        </div>
+
+                        <!-- Criptomonedas -->
+                        <div class="relative group">
+                            <button class="w-full text-left px-3.5 py-2 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400 flex items-center justify-between transition-colors">
+                                <span>🪙 Criptomonedas</span>
+                                <span class="text-[10px] text-slate-500">▶</span>
+                            </button>
+                            <div class="hidden group-hover:block absolute left-full top-0 w-44 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl py-1 ml-1 z-50">
+                                <button onclick="openAuthModal('login')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">BTC / USDT</button>
+                                <button onclick="openAuthModal('login')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">ETH / USDT</button>
                             </div>
                         </div>
                     </div>
@@ -189,17 +204,31 @@
                                 <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </button>
                             
+                            <!-- Menú Desplegable con Submenús Laterales en Dashboard -->
                             <div id="dashboard-dropdown" class="hidden absolute right-0 mt-2 w-56 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl z-50 py-1.5">
                                 <div class="px-3.5 py-1 text-[10px] uppercase tracking-wider text-slate-500 font-semibold">Seleccionar Mercado</div>
                                 
+                                <!-- Forex -->
                                 <div class="relative group">
                                     <button class="w-full text-left px-3.5 py-2 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400 flex items-center justify-between transition-colors">
-                                        <span class="text-[10px] text-slate-500">◀</span>
                                         <span>💱 Forex</span>
+                                        <span class="text-[10px] text-slate-500">▶</span>
                                     </button>
-                                    <div class="hidden group-hover:block absolute right-full top-0 w-44 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl py-1 mr-1">
-                                        <button onclick="changeAsset('FX:EURUSD', 'EUR/USD (Forex)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">EUR/USD</button>
-                                        <button onclick="changeAsset('FX:GBPUSD', 'GBP/USD (Forex)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">GBP/USD</button>
+                                    <div class="hidden group-hover:block absolute right-full top-0 w-44 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl py-1 mr-1 z-50">
+                                        <button onclick="changeAsset('FX:EURUSD', 'EUR/USD (Forex)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">EUR / USD</button>
+                                        <button onclick="changeAsset('FX:GBPUSD', 'GBP/USD (Forex)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">GBP / USD</button>
+                                    </div>
+                                </div>
+
+                                <!-- Criptomonedas -->
+                                <div class="relative group">
+                                    <button class="w-full text-left px-3.5 py-2 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400 flex items-center justify-between transition-colors">
+                                        <span>🪙 Criptomonedas</span>
+                                        <span class="text-[10px] text-slate-500">▶</span>
+                                    </button>
+                                    <div class="hidden group-hover:block absolute right-full top-0 w-44 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl py-1 mr-1 z-50">
+                                        <button onclick="changeAsset('BINANCE:BTCUSDT', 'BTC/USDT (Cripto)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">BTC / USDT</button>
+                                        <button onclick="changeAsset('BINANCE:ETHUSDT', 'ETH/USDT (Cripto)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">ETH / USDT</button>
                                     </div>
                                 </div>
                             </div>
@@ -301,7 +330,6 @@
             });
         }
 
-        // Abrir Modal indicando pestaña inicial ('login' o 'register')
         function openAuthModal(mode) {
             document.getElementById('auth-modal').classList.remove('hidden');
             switchTab(mode);
@@ -311,7 +339,6 @@
             document.getElementById('auth-modal').classList.add('hidden');
         }
 
-        // Alternar entre pestañas del modal
         function switchTab(mode) {
             const loginBtn = document.getElementById('tab-login-btn');
             const registerBtn = document.getElementById('tab-register-btn');
@@ -331,12 +358,10 @@
             }
         }
 
-        // Acceso con Google
         function loginWithGoogle() {
             enterDashboard("Trader Google");
         }
 
-        // Envío de formulario (Login o Registro)
         function handleAuthSubmit(e, type) {
             e.preventDefault();
             let username = "Trader";
@@ -348,7 +373,6 @@
             enterDashboard(username);
         }
 
-        // Pasar al Dashboard con el nombre del usuario
         function enterDashboard(username) {
             closeAuthModal();
             document.getElementById('landing-view').classList.add('hidden');
