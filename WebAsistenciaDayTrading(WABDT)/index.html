@@ -389,7 +389,14 @@
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <script>
         let tvWidget = null;
-        let chartInitialized = false;
+
+        // Comprobar sesión al cargar la página
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedUser = localStorage.getItem('alpha_logged_user');
+            if (savedUser) {
+                enterDashboard(savedUser, false); // false para no sobreescribir si ya está guardado
+            }
+        });
 
         function initTradingView(symbolToLoad) {
             document.getElementById('tradingview_advanced_chart').innerHTML = "";
@@ -439,7 +446,7 @@
         }
 
         function loginWithGoogle() {
-            enterDashboard("Trader Google");
+            enterDashboard("Trader Google", true);
         }
 
         function handleAuthSubmit(e, type) {
@@ -450,24 +457,30 @@
             } else {
                 username = document.getElementById('register-username').value;
             }
-            enterDashboard(username);
+            enterDashboard(username, true);
         }
 
-        function enterDashboard(username) {
+        function enterDashboard(username, saveSession = true) {
             closeAuthModal();
             document.getElementById('landing-view').classList.add('hidden');
             document.getElementById('dashboard-view').classList.remove('hidden');
             document.getElementById('user-name-display').innerText = username;
+
+            if (saveSession) {
+                localStorage.setItem('alpha_logged_user', username);
+            }
             
-            if(!chartInitialized) {
+            // Inicializar el gráfico si no está creado
+            if(!tvWidget) {
                 initTradingView("FX:EURUSD");
-                chartInitialized = true;
             }
         }
 
         function logout() {
+            localStorage.removeItem('alpha_logged_user');
             document.getElementById('dashboard-view').classList.add('hidden');
             document.getElementById('landing-view').classList.remove('hidden');
+            tvWidget = null;
         }
 
         function toggleMainDropdown(id) {
