@@ -54,54 +54,52 @@
                 </div>
             </div>
 
-            <!-- Gráfico en tiempo real (TradingView Widget) -->
-            <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl shadow-lg h-[450px] flex flex-col">
-                <div class="flex justify-between items-center mb-3 px-2">
+            <!-- Gráfico en tiempo real (TradingView Widget) con Selector de Activos -->
+            <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl shadow-lg h-[500px] flex flex-col">
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-3 px-2 gap-2">
                     <h3 class="text-sm font-medium text-slate-300">Gráfico en Tiempo Real</h3>
-                    <!-- Etiqueta dinámica que cambiará de símbolo -->
-                    <span id="active-symbol-label" class="text-xs text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded font-mono">FX:EURUSD</span>
+                    <!-- Botones de cambio rápido de activo -->
+                    <div class="flex gap-2">
+                        <button onclick="changeSymbol('FX:EURUSD')" class="px-3 py-1 text-xs font-mono rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/30 transition-colors">EUR/USD</button>
+                        <button onclick="changeSymbol('FX:GBPUSD')" class="px-3 py-1 text-xs font-mono rounded bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition-colors">GBP/USD</button>
+                        <button onclick="changeSymbol('BINANCE:BTCUSDT')" class="px-3 py-1 text-xs font-mono rounded bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition-colors">BTC/USDT</button>
+                        <button onclick="changeSymbol('OANDA:XAUUSD')" class="px-3 py-1 text-xs font-mono rounded bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition-colors">ORO (XAUUSD)</button>
+                    </div>
                 </div>
+                
                 <!-- Contenedor del Widget de TradingView -->
                 <div class="tradingview-widget-container flex-1 w-full h-full">
                     <div id="tradingview_advanced_chart" class="w-full h-full"></div>
                     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
                     <script type="text/javascript">
-                    const tvWidget = new TradingView.widget({
-                      "autosize": true,
-                      "symbol": "FX:EURUSD",
-                      "interval": "D",
-                      "timezone": "Etc/UTC",
-                      "theme": "dark",
-                      "style": "1",
-                      "locale": "es",
-                      "enable_publishing": false,
-                      "hide_side_toolbar": false,
-                      "allow_symbol_change": true,
-                      "calendar": false,
-                      "support_host": "https://www.tradingview.com",
-                      "container_id": "tradingview_advanced_chart",
-                      "on_ready": function() {
-                          // Escuchamos cuando cambia el símbolo en el widget para actualizar la etiqueta superior
-                          tvWidget.onDataLoaded(() => {
-                              try {
-                                  const currentSymbol = tvWidget.symbol.get();
-                                  document.getElementById('active-symbol-label').innerText = currentSymbol;
-                              } catch(e) {}
-                          });
-                      }
-                    });
+                    let tvWidget;
 
-                    // Intervalo de comprobación ligera para mantener sincronizado el texto si cambia el activo
-                    setInterval(() => {
-                        try {
-                            if (window.tradingview_advanced_chart && tvWidget.symbol) {
-                                const sym = tvWidget.symbol.get();
-                                if (sym) {
-                                    document.getElementById('active-symbol-label').innerText = sym;
-                                }
-                            }
-                        } catch(e) {}
-                    }, 2000);
+                    function initTradingView(symbolToLoad) {
+                        document.getElementById('tradingview_advanced_chart').innerHTML = "";
+                        tvWidget = new TradingView.widget({
+                          "autosize": true,
+                          "symbol": symbolToLoad,
+                          "interval": "D",
+                          "timezone": "Etc/UTC",
+                          "theme": "dark",
+                          "style": "1",
+                          "locale": "es",
+                          "enable_publishing": false,
+                          "hide_side_toolbar": false,
+                          "allow_symbol_change": true,
+                          "calendar": false,
+                          "support_host": "https://www.tradingview.com",
+                          "container_id": "tradingview_advanced_chart"
+                        });
+                    }
+
+                    // Carga inicial por defecto
+                    initTradingView("FX:EURUSD");
+
+                    // Función para cambiar de activo desde los botones superiores
+                    function changeSymbol(newSymbol) {
+                        initTradingView(newSymbol);
+                    }
                     </script>
                 </div>
             </div>
