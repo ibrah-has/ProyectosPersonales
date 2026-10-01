@@ -3,212 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto Alpha - Plataforma de Trading</title>
+    <title>Proyecto Alpha — Plataforma de Trading</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Estilos personalizados para ajustar colores institucionales -->
+    <style>
+        body {
+            background-color: #0B0F17;
+            color: #F1F5F9;
+        }
+    </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-slate-950">
+<body class="font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-sky-500 selection:text-slate-950">
 
     <!-- ========================================== -->
     <!-- VISTA 1: PÁGINA DE INICIO (LANDING PAGE) -->
     <!-- ========================================== -->
     <div id="landing-view" class="flex flex-col min-h-screen justify-between w-full">
         <!-- Barra de Navegación -->
-        <header class="w-full bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50 px-6 lg:px-12 py-4 flex items-center justify-between">
+        <header class="w-full bg-[#0F1623]/90 backdrop-blur-md border-b border-slate-800/80 sticky top-0 z-50 px-6 lg:px-12 py-3.5 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <span class="text-xl font-black tracking-wider text-emerald-400">PROYECTO ALPHA</span>
+                <div class="w-7 h-7 bg-sky-500/10 border border-sky-500/30 rounded-lg flex items-center justify-center font-bold text-sky-400 text-xs">α</div>
+                <span class="text-base font-bold tracking-tight text-slate-100">PROYECTO <span class="text-sky-400 font-extrabold">ALPHA</span></span>
             </div>
 
             <!-- Menús de Navegación Central -->
-            <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
-                <!-- Menú Desplegable de Mercado con Mini Pestañas a la Izquierda -->
+            <nav class="hidden md:flex items-center gap-8 text-xs font-medium text-slate-300">
+                <!-- Menú Desplegable de Mercado -->
                 <div class="relative">
-                    <button onclick="toggleMainDropdown('landing-dropdown')" class="flex items-center gap-1.5 text-slate-300 hover:text-emerald-400 transition-colors py-1">
-                        <span>Mercado</span>
+                    <button onclick="toggleMainDropdown('landing-dropdown')" class="flex items-center gap-1.5 hover:text-sky-400 transition-colors py-1">
+                        <span>Mercados</span>
                         <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     
-                    <div id="landing-dropdown" class="hidden absolute left-0 mt-2 w-56 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl z-50 py-1">
-                        <div class="px-3 py-1.5 text-[10px] uppercase tracking-wider text-slate-500 font-bold">Seleccionar Categoría</div>
+                    <div id="landing-dropdown" class="hidden absolute left-0 mt-2 w-56 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl z-50 py-1.5">
+                        <div class="px-3.5 py-1 text-[10px] uppercase tracking-wider text-slate-500 font-semibold">Categorías</div>
                         
                         <div class="relative group">
-                            <button class="w-full text-left px-3 py-2 text-xs text-slate-300 hover:bg-emerald-500/10 hover:text-emerald-400 flex items-center justify-between transition-colors">
+                            <button class="w-full text-left px-3.5 py-2 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400 flex items-center justify-between transition-colors">
                                 <span class="text-[10px] text-slate-500">◀</span>
                                 <span>💱 Forex</span>
                             </button>
-                            <div class="hidden group-hover:block absolute right-full top-0 w-44 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl py-1 mr-1">
-                                <button onclick="loginWithGoogle()" class="w-full text-left px-3 py-1.5 text-xs text-slate-300 hover:bg-emerald-500/10 hover:text-emerald-400">EUR/USD</button>
-                                <button onclick="loginWithGoogle()" class="w-full text-left px-3 py-1.5 text-xs text-slate-300 hover:bg-emerald-500/10 hover:text-emerald-400">GBP/USD</button>
+                            <div class="hidden group-hover:block absolute right-full top-0 w-44 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl py-1 mr-1">
+                                <button onclick="loginWithGoogle()" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">EUR / USD</button>
+                                <button onclick="loginWithGoogle()" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">GBP / USD</button>
                             </div>
                         </div>
 
                         <div class="relative group">
-                            <button class="w-full text-left px-3 py-2 text-xs text-slate-300 hover:bg-emerald-500/10 hover:text-emerald-400 flex items-center justify-between transition-colors">
+                            <button class="w-full text-left px-3.5 py-2 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400 flex items-center justify-between transition-colors">
                                 <span class="text-[10px] text-slate-500">◀</span>
                                 <span>🪙 Criptomonedas</span>
                             </button>
-                            <div class="hidden group-hover:block absolute right-full top-0 w-44 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl py-1 mr-1">
-                                <button onclick="loginWithGoogle()" class="w-full text-left px-3 py-1.5 text-xs text-slate-300 hover:bg-emerald-500/10 hover:text-emerald-400">BTC/USDT</button>
-                                <button onclick="loginWithGoogle()" class="w-full text-left px-3 py-1.5 text-xs text-slate-300 hover:bg-emerald-500/10 hover:text-emerald-400">ETH/USDT</button>
+                            <div class="hidden group-hover:block absolute right-full top-0 w-44 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl py-1 mr-1">
+                                <button onclick="loginWithGoogle()" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">BTC / USDT</button>
+                                <button onclick="loginWithGoogle()" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">ETH / USDT</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <a href="#funciones" class="text-slate-300 hover:text-emerald-400 transition-colors">Noticias</a>
-                <a href="#funciones" class="text-slate-300 hover:text-emerald-400 transition-colors">Centro de Ayuda</a>
+                <a href="#funciones" class="hover:text-sky-400 transition-colors">Noticias</a>
+                <a href="#funciones" class="hover:text-sky-400 transition-colors">Centro de Ayuda</a>
             </nav>
 
             <div class="flex items-center gap-4">
-                <button onclick="openAuthModal()" class="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-4 py-2 rounded-xl text-xs font-semibold transition-all">
-                    <span>👤 Cuenta / Empieza</span>
+                <button onclick="openAuthModal()" class="bg-[#1B2436] hover:bg-[#222E45] text-slate-200 border border-slate-700/60 px-4 py-2 rounded-lg text-xs font-medium transition-all">
+                    Iniciar Sesión
                 </button>
             </div>
         </header>
 
         <!-- Hero Section -->
-        <main class="flex-1 flex flex-col items-center justify-center px-6 py-16 text-center max-w-4xl mx-auto">
-            <div class="inline-block px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold mb-6">
-                🚀 Tu plataforma integral de Trading profesional
+        <main class="flex-1 flex flex-col items-center justify-center px-6 py-20 text-center max-w-3xl mx-auto">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-xs font-medium mb-6">
+                <span class="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span>
+                Infraestructura para Trading Profesional
             </div>
-            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-100 leading-tight">
-                Tu propio espacio personal del <span class="text-emerald-400">mercado de valores</span>
+            <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-slate-100 leading-tight">
+                Tu centro de mando operacional para el <span class="text-sky-400">mercado financiero</span>
             </h1>
-            <p class="mt-6 text-base sm:text-lg text-slate-400 max-w-2xl">
-                Gestiona tu riesgo, analiza gráficos en tiempo real, lleva tu diario de operaciones y optimiza tu estrategia con herramientas de nivel institucional.
+            <p class="mt-5 text-sm sm:text-base text-slate-400 max-w-xl leading-relaxed">
+                Gestiona tu riesgo cuantitativo, analiza gráficos institucionales en tiempo real y optimiza cada operación con métricas avanzadas.
             </p>
 
-            <div class="mt-10 flex flex-wrap justify-center gap-4">
-                <button onclick="openAuthModal()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-8 py-3.5 rounded-xl shadow-lg transition-all text-sm">
-                    Empieza Ahora Gratis
+            <div class="mt-8 flex flex-wrap justify-center gap-3">
+                <button onclick="openAuthModal()" class="bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold px-6 py-3 rounded-lg text-xs shadow-md shadow-sky-500/10 transition-all">
+                    Acceder a la Plataforma
                 </button>
             </div>
         </main>
 
         <!-- Funciones Principales -->
-        <section id="funciones" class="bg-slate-900/50 border-t border-slate-800/80 py-16 px-6 lg:px-12">
-            <div class="max-w-6xl mx-auto">
-                <h2 class="text-2xl font-bold text-center text-slate-200 mb-10">Funciones Principales</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl">
-                        <div class="text-2xl mb-3">🧮</div>
-                        <h3 class="font-bold text-slate-200 text-sm">Cálculo de Riesgo</h3>
-                        <p class="text-xs text-slate-400 mt-1">Controla tu lotaje y exposición por operación.</p>
+        <section id="funciones" class="bg-[#0E131F] border-t border-slate-800/60 py-16 px-6 lg:px-12">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 text-center mb-10">Módulos del Sistema</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    <div class="bg-[#131A29] border border-slate-800/80 p-5 rounded-xl">
+                        <div class="w-8 h-8 bg-sky-500/10 rounded-lg flex items-center justify-center text-sky-400 text-sm mb-3">📊</div>
+                        <h3 class="font-semibold text-slate-200 text-xs">Gestión de Riesgo</h3>
+                        <p class="text-xs text-slate-400 mt-1 leading-relaxed">Dimensionamiento de posición y límites de exposición.</p>
                     </div>
-                    <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl">
-                        <div class="text-2xl mb-3">📝</div>
-                        <h3 class="font-bold text-slate-200 text-sm">Diario de Trading</h3>
-                        <p class="text-xs text-slate-400 mt-1">Registra tus entradas y psicología de mercado.</p>
+                    <div class="bg-[#131A29] border border-slate-800/80 p-5 rounded-xl">
+                        <div class="w-8 h-8 bg-sky-500/10 rounded-lg flex items-center justify-center text-sky-400 text-sm mb-3">📝</div>
+                        <h3 class="font-semibold text-slate-200 text-xs">Diario Operativo</h3>
+                        <p class="text-xs text-slate-400 mt-1 leading-relaxed">Registro detallado de ejecuciones y métricas R:R.</p>
                     </div>
-                    <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl">
-                        <div class="text-2xl mb-3">📰</div>
-                        <h3 class="font-bold text-slate-200 text-sm">Noticias & Calendario</h3>
-                        <p class="text-xs text-slate-400 mt-1">Eventos macroeconómicos clave al alcance.</p>
+                    <div class="bg-[#131A29] border border-slate-800/80 p-5 rounded-xl">
+                        <div class="w-8 h-8 bg-sky-500/10 rounded-lg flex items-center justify-center text-sky-400 text-sm mb-3">🌐</div>
+                        <h3 class="font-semibold text-slate-200 text-xs">Calendario Macro</h3>
+                        <p class="text-xs text-slate-400 mt-1 leading-relaxed">Alertas de alto impacto macroeconómico.</p>
                     </div>
-                    <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl">
-                        <div class="text-2xl mb-3">🤖</div>
-                        <h3 class="font-bold text-slate-200 text-sm">Bots y Estadísticas</h3>
-                        <p class="text-xs text-slate-400 mt-1">Analiza tus métricas de rendimiento detalladas.</p>
+                    <div class="bg-[#131A29] border border-slate-800/80 p-5 rounded-xl">
+                        <div class="w-8 h-8 bg-sky-500/10 rounded-lg flex items-center justify-center text-sky-400 text-sm mb-3">📈</div>
+                        <h3 class="font-semibold text-slate-200 text-xs">Análisis Estadístico</h3>
+                        <p class="text-xs text-slate-400 mt-1 leading-relaxed">Evaluación del rendimiento histórico de tu operativa.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500">
-            Proyecto Alpha © 2026 — Todos los derechos reservados.
+        <footer class="border-t border-slate-800/60 py-5 text-center text-xs text-slate-500">
+            Proyecto Alpha Systems © 2026 — Plataforma Institucional.
         </footer>
     </div>
 
 
     <!-- ========================================== -->
-    <!-- VISTA 2: DASHBOARD DE TRADING (OCULTO HASTA LOGIN) -->
+    <!-- VISTA 2: DASHBOARD DE TRADING              -->
     <!-- ========================================== -->
     <div id="dashboard-view" class="hidden flex-1 flex min-h-screen">
         <!-- Menú Lateral -->
-        <aside class="w-64 bg-slate-900 border-r border-slate-800 flex flex-col justify-between hidden md:flex">
-            <div class="p-6">
-                <h1 class="text-xl font-bold tracking-wider text-emerald-400">PROYECTO ALPHA</h1>
-                <p class="text-xs text-slate-400 mt-1">Trading & Gestión de Riesgo</p>
+        <aside class="w-60 bg-[#0E131F] border-r border-slate-800/80 flex flex-col justify-between hidden md:flex">
+            <div class="p-5">
+                <div class="flex items-center gap-2 mb-6">
+                    <div class="w-6 h-6 bg-sky-500/10 border border-sky-500/30 rounded flex items-center justify-center font-bold text-sky-400 text-xs">α</div>
+                    <span class="text-xs font-bold tracking-tight text-slate-200">PROYECTO <span class="text-sky-400">ALPHA</span></span>
+                </div>
                 
-                <nav class="mt-8 space-y-2">
-                    <a href="#" class="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-emerald-500/10 text-emerald-400 font-medium text-sm transition-colors">📊 Dashboard</a>
-                    <a href="#" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-slate-200 font-medium text-sm transition-colors">📝 Diario de Trading</a>
-                    <a href="#" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-slate-200 font-medium text-sm transition-colors">🧮 Cálculo de Riesgo</a>
-                    <a href="#" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-slate-200 font-medium text-sm transition-colors">📰 Noticias & Análisis</a>
-                    <a href="#" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-slate-200 font-medium text-sm transition-colors">🤖 Bots y Estrategias</a>
+                <nav class="space-y-1">
+                    <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-sky-500/10 text-sky-400 font-medium text-xs">
+                        <span>📊</span> Dashboard
+                    </a>
+                    <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-400 hover:bg-[#131A29] hover:text-slate-200 font-medium text-xs transition-colors">
+                        <span>📝</span> Diario de Trading
+                    </a>
+                    <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-400 hover:bg-[#131A29] hover:text-slate-200 font-medium text-xs transition-colors">
+                        <span>🧮</span> Cálculo de Riesgo
+                    </a>
+                    <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-400 hover:bg-[#131A29] hover:text-slate-200 font-medium text-xs transition-colors">
+                        <span>📰</span> Noticias
+                    </a>
                 </nav>
             </div>
-            <div class="p-6 border-t border-slate-800 flex flex-col gap-3">
-                <div class="text-xs text-slate-500">
-                    Usuario: <span id="user-email-display" class="text-slate-300 font-medium">Ibrah</span><br>Estado: Sincronizado 🟢
+            <div class="p-5 border-t border-slate-800/80 flex flex-col gap-2.5">
+                <div class="text-[11px] text-slate-500">
+                    Cuenta: <span id="user-email-display" class="text-slate-300 font-medium">--</span>
                 </div>
-                <button onclick="logout()" class="text-left text-xs text-red-400 hover:text-red-300 font-semibold transition-colors">🚪 Cerrar Sesión</button>
+                <button onclick="logout()" class="text-left text-xs text-rose-400 hover:text-rose-300 font-medium transition-colors">Cerrar Sesión</button>
             </div>
         </aside>
 
         <!-- Contenido Dashboard -->
         <main class="flex-1 flex flex-col min-w-0">
-            <header class="h-16 bg-slate-900/50 backdrop-blur border-b border-slate-800 flex items-center justify-between px-6 lg:px-8">
-                <h2 class="text-lg font-semibold text-slate-200">Panel General</h2>
-                <div class="text-sm text-emerald-400 font-mono">🟢 Mercado Abierto</div>
+            <header class="h-14 bg-[#0E131F]/60 backdrop-blur border-b border-slate-800/80 flex items-center justify-between px-6">
+                <h2 class="text-xs font-medium text-slate-300">Terminal Principal</h2>
+                <div class="flex items-center gap-2 text-xs text-emerald-400 font-mono">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Mercado Activo
+                </div>
             </header>
 
-            <div class="p-6 lg:p-8 flex-1 space-y-6">
-                <!-- Tarjetas -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-slate-900/80 border border-slate-800 p-5 rounded-xl shadow-lg">
-                        <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">Balance Total</p>
-                        <p class="text-2xl font-bold text-slate-100 mt-2">$0.00</p>
+            <div class="p-6 flex-1 space-y-5">
+                <!-- Tarjetas de métricas -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-[#131A29] border border-slate-800/80 p-4 rounded-xl">
+                        <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Capital de Cuenta</p>
+                        <p class="text-xl font-bold text-slate-100 mt-1">$0.00</p>
                     </div>
-                    <div class="bg-slate-900/80 border border-slate-800 p-5 rounded-xl shadow-lg">
-                        <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">Rendimiento (R:R)</p>
-                        <p class="text-2xl font-bold text-emerald-400 mt-2">0.00</p>
+                    <div class="bg-[#131A29] border border-slate-800/80 p-4 rounded-xl">
+                        <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Ratio Esperanza (R:R)</p>
+                        <p class="text-xl font-bold text-sky-400 mt-1">0.00</p>
                     </div>
-                    <div class="bg-slate-900/80 border border-slate-800 p-5 rounded-xl shadow-lg">
-                        <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">Operaciones Abiertas</p>
-                        <p class="text-2xl font-bold text-blue-400 mt-2">0</p>
+                    <div class="bg-[#131A29] border border-slate-800/80 p-4 rounded-xl">
+                        <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Exposición Activa</p>
+                        <p class="text-xl font-bold text-slate-300 mt-1">0 Lotes</p>
                     </div>
                 </div>
 
                 <!-- Gráfico de TradingView -->
-                <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl shadow-lg h-[540px] flex flex-col relative z-20">
-                    <div class="flex flex-col sm:flex-row justify-between items-center mb-3 px-2 gap-2">
-                        <h3 class="text-sm font-medium text-slate-300">Gráfico en Tiempo Real</h3>
+                <div class="bg-[#131A29] border border-slate-800/80 p-4 rounded-xl h-[520px] flex flex-col relative z-20">
+                    <div class="flex flex-col sm:flex-row justify-between items-center mb-3 px-1 gap-2">
+                        <h3 class="text-xs font-medium text-slate-300">Análisis Gráfico</h3>
                         
                         <div class="relative">
-                            <button onclick="toggleMainDropdown('dashboard-dropdown')" class="flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-lg bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 transition-colors">
-                                <span>Activo Actual: <strong id="market-selected" class="text-emerald-400">EUR/USD (Forex)</strong></span>
+                            <button onclick="toggleMainDropdown('dashboard-dropdown')" class="flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-lg bg-[#1B2436] text-slate-200 border border-slate-700/60 hover:bg-[#222E45] transition-colors">
+                                <span>Activo: <strong id="market-selected" class="text-sky-400 font-semibold">EUR/USD (Forex)</strong></span>
                                 <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </button>
                             
-                            <div id="dashboard-dropdown" class="hidden absolute right-0 mt-2 w-56 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl z-50 py-1">
-                                <div class="px-3 py-1.5 text-[10px] uppercase tracking-wider text-slate-500 font-bold">Seleccionar Categoría</div>
+                            <div id="dashboard-dropdown" class="hidden absolute right-0 mt-2 w-56 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl z-50 py-1.5">
+                                <div class="px-3.5 py-1 text-[10px] uppercase tracking-wider text-slate-500 font-semibold">Seleccionar Mercado</div>
                                 
                                 <div class="relative group">
-                                    <button class="w-full text-left px-3 py-2 text-xs text-slate-300 hover:bg-emerald-500/10 hover:text-emerald-400 flex items-center justify-between transition-colors">
+                                    <button class="w-full text-left px-3.5 py-2 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400 flex items-center justify-between transition-colors">
                                         <span class="text-[10px] text-slate-500">◀</span>
                                         <span>💱 Forex</span>
                                     </button>
-                                    <div class="hidden group-hover:block absolute right-full top-0 w-44 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl py-1 mr-1">
-                                        <button onclick="changeAsset('FX:EURUSD', 'EUR/USD (Forex)')" class="w-full text-left px-3 py-1.5 text-xs text-slate-300 hover:bg-emerald-500/10 hover:text-emerald-400">EUR/USD</button>
-                                        <button onclick="changeAsset('FX:GBPUSD', 'GBP/USD (Forex)')" class="w-full text-left px-3 py-1.5 text-xs text-slate-300 hover:bg-emerald-500/10 hover:text-emerald-400">GBP/USD</button>
+                                    <div class="hidden group-hover:block absolute right-full top-0 w-44 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl py-1 mr-1">
+                                        <button onclick="changeAsset('FX:EURUSD', 'EUR/USD (Forex)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">EUR/USD</button>
+                                        <button onclick="changeAsset('FX:GBPUSD', 'GBP/USD (Forex)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">GBP/USD</button>
                                     </div>
                                 </div>
 
                                 <div class="relative group">
-                                    <button class="w-full text-left px-3 py-2 text-xs text-slate-300 hover:bg-emerald-500/10 hover:text-emerald-400 flex items-center justify-between transition-colors">
+                                    <button class="w-full text-left px-3.5 py-2 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400 flex items-center justify-between transition-colors">
                                         <span class="text-[10px] text-slate-500">◀</span>
                                         <span>🪙 Criptomonedas</span>
                                     </button>
-                                    <div class="hidden group-hover:block absolute right-full top-0 w-44 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl py-1 mr-1">
-                                        <button onclick="changeAsset('BINANCE:BTCUSDT', 'BTC/USDT (Cripto)')" class="w-full text-left px-3 py-1.5 text-xs text-slate-300 hover:bg-emerald-500/10 hover:text-emerald-400">BTC/USDT</button>
-                                        <button onclick="changeAsset('BINANCE:ETHUSDT', 'ETH/USDT (Cripto)')" class="w-full text-left px-3 py-1.5 text-xs text-slate-300 hover:bg-emerald-500/10 hover:text-emerald-400">ETH/USDT</button>
+                                    <div class="hidden group-hover:block absolute right-full top-0 w-44 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl py-1 mr-1">
+                                        <button onclick="changeAsset('BINANCE:BTCUSDT', 'BTC/USDT (Cripto)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">BTC/USDT</button>
+                                        <button onclick="changeAsset('BINANCE:ETHUSDT', 'ETH/USDT (Cripto)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">ETH/USDT</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="tradingview-widget-container flex-1 w-full h-full">
+                    <div class="tradingview-widget-container flex-1 w-full h-full rounded-lg overflow-hidden">
                         <div id="tradingview_advanced_chart" class="w-full h-full"></div>
                     </div>
                 </div>
@@ -218,46 +238,46 @@
 
 
     <!-- ========================================== -->
-    <!-- MODAL DE INICIO DE SESIÓN CON GOOGLE       -->
+    <!-- MODAL DE AUTENTICACIÓN CON GOOGLE           -->
     <!-- ========================================== -->
-    <div id="auth-modal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-800 w-full max-w-md rounded-3xl p-8 shadow-2xl relative">
-            <button onclick="closeAuthModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-100 font-bold">✕</button>
+    <div id="auth-modal" class="hidden fixed inset-0 bg-[#080B11]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-[#131A29] border border-slate-800/80 w-full max-w-sm rounded-2xl p-6 shadow-2xl relative">
+            <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-500 hover:text-slate-200 font-bold text-xs">✕</button>
             
-            <div class="text-center mb-6">
-                <h3 class="text-xl font-bold text-slate-100">Accede a Proyecto Alpha</h3>
-                <p class="text-xs text-slate-400 mt-1">Guarda tu progreso y configuraciones en la nube.</p>
+            <div class="text-center mb-5">
+                <h3 class="text-base font-bold text-slate-100">Iniciar Sesión</h3>
+                <p class="text-xs text-slate-400 mt-1">Accede a tus configuraciones y diario operativo.</p>
             </div>
 
             <!-- Botón Google -->
-            <button onclick="loginWithGoogle()" class="w-full flex items-center justify-center gap-3 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 py-3 rounded-xl text-sm font-semibold transition-all mb-4">
-                <svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.6 3.6 1.7 7.4l3.7 2.9C6.3 7.2 8.9 5 12 5z"/><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/><path fill="#FBBC05" d="M5.4 14.7c-.2-.7-.4-1.5-.4-2.7s.2-2 .4-2.7L1.7 6.4C.6 8.6 0 10.2 0 12s.6 3.4 1.7 5.6l3.7-2.9z"/><path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.7-2.2-6.6-5.3L1.7 15C3.6 18.8 7.5 21.4 12 21.4z"/></svg>
-                Continuar con Google (Gmail)
+            <button onclick="loginWithGoogle()" class="w-full flex items-center justify-center gap-2.5 bg-[#1B2436] hover:bg-[#222E45] text-slate-200 border border-slate-700/60 py-2.5 rounded-xl text-xs font-medium transition-all mb-4">
+                <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.6 3.6 1.7 7.4l3.7 2.9C6.3 7.2 8.9 5 12 5z"/><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/><path fill="#FBBC05" d="M5.4 14.7c-.2-.7-.4-1.5-.4-2.7s.2-2 .4-2.7L1.7 6.4C.6 8.6 0 10.2 0 12s.6 3.4 1.7 5.6l3.7-2.9z"/><path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.7-2.2-6.6-5.3L1.7 15C3.6 18.8 7.5 21.4 12 21.4z"/></svg>
+                Continuar con Google
             </button>
 
             <div class="relative flex py-2 items-center">
                 <div class="flex-grow border-t border-slate-800"></div>
-                <span class="flex-shrink mx-4 text-slate-500 text-[10px] uppercase">O con correo</span>
+                <span class="flex-shrink mx-3 text-slate-500 text-[10px] uppercase font-semibold">O con email</span>
                 <div class="flex-grow border-t border-slate-800"></div>
             </div>
 
-            <form onsubmit="handleEmailAuth(event)" class="space-y-4 mt-2">
+            <form onsubmit="handleEmailAuth(event)" class="space-y-3 mt-2">
                 <div>
-                    <label class="block text-xs font-medium text-slate-400 mb-1">Correo Electrónico</label>
-                    <input id="email-input" type="email" required placeholder="tu@correo.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-emerald-500">
+                    <label class="block text-[11px] font-medium text-slate-400 mb-1">Correo Electrónico</label>
+                    <input id="email-input" type="email" required placeholder="tu@empresa.com" class="w-full bg-[#0B0F17] border border-slate-800/80 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
                 </div>
                 <div>
-                    <label class="block text-xs font-medium text-slate-400 mb-1">Contraseña</label>
-                    <input type="password" required placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-emerald-500">
+                    <label class="block text-[11px] font-medium text-slate-400 mb-1">Contraseña</label>
+                    <input type="password" required placeholder="••••••••" class="w-full bg-[#0B0F17] border border-slate-800/80 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
                 </div>
-                <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-3 rounded-xl text-sm transition-all shadow-lg">
-                    Iniciar Sesión / Registrarse
+                <button type="submit" class="w-full bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold py-2.5 rounded-lg text-xs transition-all mt-1">
+                    Ingresar
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- Scripts de TradingView y Lógica de Vistas -->
+    <!-- Scripts de TradingView y Lógica -->
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <script>
         let tvWidget = null;
@@ -282,12 +302,11 @@
             });
         }
 
-        // Control de Vistas (Landing vs Dashboard)
         function loginWithGoogle() {
             closeAuthModal();
             document.getElementById('landing-view').classList.add('hidden');
             document.getElementById('dashboard-view').classList.remove('hidden');
-            document.getElementById('user-email-display').innerText = "Google User";
+            document.getElementById('user-email-display').innerText = "Usuario Google";
             
             if(!chartInitialized) {
                 initTradingView("FX:EURUSD");
@@ -314,7 +333,6 @@
             document.getElementById('landing-view').classList.remove('hidden');
         }
 
-        // Modales y Desplegables
         function openAuthModal() {
             document.getElementById('auth-modal').classList.remove('hidden');
         }
