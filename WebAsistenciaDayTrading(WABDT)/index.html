@@ -6,7 +6,6 @@
     <title>Proyecto Alpha — Plataforma de Trading</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Estilos personalizados para ajustar colores institucionales -->
     <style>
         body {
             background-color: #0B0F17;
@@ -29,7 +28,6 @@
 
             <!-- Menús de Navegación Central -->
             <nav class="hidden md:flex items-center gap-8 text-xs font-medium text-slate-300">
-                <!-- Menú Desplegable de Mercado -->
                 <div class="relative">
                     <button onclick="toggleMainDropdown('landing-dropdown')" class="flex items-center gap-1.5 hover:text-sky-400 transition-colors py-1">
                         <span>Mercados</span>
@@ -38,26 +36,14 @@
                     
                     <div id="landing-dropdown" class="hidden absolute left-0 mt-2 w-56 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl z-50 py-1.5">
                         <div class="px-3.5 py-1 text-[10px] uppercase tracking-wider text-slate-500 font-semibold">Categorías</div>
-                        
                         <div class="relative group">
                             <button class="w-full text-left px-3.5 py-2 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400 flex items-center justify-between transition-colors">
                                 <span class="text-[10px] text-slate-500">◀</span>
                                 <span>💱 Forex</span>
                             </button>
                             <div class="hidden group-hover:block absolute right-full top-0 w-44 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl py-1 mr-1">
-                                <button onclick="loginWithGoogle()" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">EUR / USD</button>
-                                <button onclick="loginWithGoogle()" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">GBP / USD</button>
-                            </div>
-                        </div>
-
-                        <div class="relative group">
-                            <button class="w-full text-left px-3.5 py-2 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400 flex items-center justify-between transition-colors">
-                                <span class="text-[10px] text-slate-500">◀</span>
-                                <span>🪙 Criptomonedas</span>
-                            </button>
-                            <div class="hidden group-hover:block absolute right-full top-0 w-44 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl py-1 mr-1">
-                                <button onclick="loginWithGoogle()" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">BTC / USDT</button>
-                                <button onclick="loginWithGoogle()" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">ETH / USDT</button>
+                                <button onclick="openAuthModal('login')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">EUR / USD</button>
+                                <button onclick="openAuthModal('login')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">GBP / USD</button>
                             </div>
                         </div>
                     </div>
@@ -66,9 +52,12 @@
                 <a href="#funciones" class="hover:text-sky-400 transition-colors">Centro de Ayuda</a>
             </nav>
 
-            <div class="flex items-center gap-4">
-                <button onclick="openAuthModal()" class="bg-[#1B2436] hover:bg-[#222E45] text-slate-200 border border-slate-700/60 px-4 py-2 rounded-lg text-xs font-medium transition-all">
+            <div class="flex items-center gap-3">
+                <button onclick="openAuthModal('login')" class="bg-transparent hover:bg-slate-800 text-slate-300 px-3 py-2 rounded-lg text-xs font-medium transition-all">
                     Iniciar Sesión
+                </button>
+                <button onclick="openAuthModal('register')" class="bg-sky-500 hover:bg-sky-400 text-slate-950 px-3.5 py-2 rounded-lg text-xs font-semibold transition-all shadow-md shadow-sky-500/10">
+                    Registrarse
                 </button>
             </div>
         </header>
@@ -87,8 +76,8 @@
             </p>
 
             <div class="mt-8 flex flex-wrap justify-center gap-3">
-                <button onclick="openAuthModal()" class="bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold px-6 py-3 rounded-lg text-xs shadow-md shadow-sky-500/10 transition-all">
-                    Acceder a la Plataforma
+                <button onclick="openAuthModal('register')" class="bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold px-6 py-3 rounded-lg text-xs shadow-md shadow-sky-500/10 transition-all">
+                    Comenzar Gratis
                 </button>
             </div>
         </main>
@@ -157,7 +146,7 @@
             </div>
             <div class="p-5 border-t border-slate-800/80 flex flex-col gap-2.5">
                 <div class="text-[11px] text-slate-500">
-                    Cuenta: <span id="user-email-display" class="text-slate-300 font-medium">--</span>
+                    Usuario: <span id="user-name-display" class="text-sky-400 font-bold">--</span>
                 </div>
                 <button onclick="logout()" class="text-left text-xs text-rose-400 hover:text-rose-300 font-medium transition-colors">Cerrar Sesión</button>
             </div>
@@ -213,17 +202,6 @@
                                         <button onclick="changeAsset('FX:GBPUSD', 'GBP/USD (Forex)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">GBP/USD</button>
                                     </div>
                                 </div>
-
-                                <div class="relative group">
-                                    <button class="w-full text-left px-3.5 py-2 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400 flex items-center justify-between transition-colors">
-                                        <span class="text-[10px] text-slate-500">◀</span>
-                                        <span>🪙 Criptomonedas</span>
-                                    </button>
-                                    <div class="hidden group-hover:block absolute right-full top-0 w-44 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl py-1 mr-1">
-                                        <button onclick="changeAsset('BINANCE:BTCUSDT', 'BTC/USDT (Cripto)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">BTC/USDT</button>
-                                        <button onclick="changeAsset('BINANCE:ETHUSDT', 'ETH/USDT (Cripto)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">ETH/USDT</button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -238,40 +216,61 @@
 
 
     <!-- ========================================== -->
-    <!-- MODAL DE AUTENTICACIÓN CON GOOGLE           -->
+    <!-- MODAL DE AUTENTICACIÓN (LOGIN / REGISTRO)   -->
     <!-- ========================================== -->
     <div id="auth-modal" class="hidden fixed inset-0 bg-[#080B11]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-[#131A29] border border-slate-800/80 w-full max-w-sm rounded-2xl p-6 shadow-2xl relative">
             <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-500 hover:text-slate-200 font-bold text-xs">✕</button>
             
-            <div class="text-center mb-5">
-                <h3 class="text-base font-bold text-slate-100">Iniciar Sesión</h3>
-                <p class="text-xs text-slate-400 mt-1">Accede a tus configuraciones y diario operativo.</p>
+            <!-- Pestañas de Selector (Iniciar Sesión / Registrarse) -->
+            <div class="flex border-b border-slate-800 mb-5">
+                <button id="tab-login-btn" onclick="switchTab('login')" class="flex-1 pb-2.5 text-xs font-semibold text-sky-400 border-b-2 border-sky-400 transition-all">Iniciar Sesión</button>
+                <button id="tab-register-btn" onclick="switchTab('register')" class="flex-1 pb-2.5 text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all">Registrarse</button>
             </div>
 
-            <!-- Botón Google -->
-            <button onclick="loginWithGoogle()" class="w-full flex items-center justify-center gap-2.5 bg-[#1B2436] hover:bg-[#222E45] text-slate-200 border border-slate-700/60 py-2.5 rounded-xl text-xs font-medium transition-all mb-4">
+            <!-- Botón Google Común -->
+            <button onclick="loginWithGoogle()" class="w-full flex items-center justify-center gap-2.5 bg-[#1B2436] hover:bg-[#222E45] text-slate-200 border border-slate-700/60 py-2 rounded-xl text-xs font-medium transition-all mb-4">
                 <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.6 3.6 1.7 7.4l3.7 2.9C6.3 7.2 8.9 5 12 5z"/><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/><path fill="#FBBC05" d="M5.4 14.7c-.2-.7-.4-1.5-.4-2.7s.2-2 .4-2.7L1.7 6.4C.6 8.6 0 10.2 0 12s.6 3.4 1.7 5.6l3.7-2.9z"/><path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.7-2.2-6.6-5.3L1.7 15C3.6 18.8 7.5 21.4 12 21.4z"/></svg>
                 Continuar con Google
             </button>
 
-            <div class="relative flex py-2 items-center">
+            <div class="relative flex py-1 items-center mb-3">
                 <div class="flex-grow border-t border-slate-800"></div>
-                <span class="flex-shrink mx-3 text-slate-500 text-[10px] uppercase font-semibold">O con email</span>
+                <span class="flex-shrink mx-3 text-slate-500 text-[10px] uppercase font-semibold">O con credenciales</span>
                 <div class="flex-grow border-t border-slate-800"></div>
             </div>
 
-            <form onsubmit="handleEmailAuth(event)" class="space-y-3 mt-2">
+            <!-- FORMULARIO DE INICIO DE SESIÓN -->
+            <form id="form-login" onsubmit="handleAuthSubmit(event, 'login')" class="space-y-3">
                 <div>
-                    <label class="block text-[11px] font-medium text-slate-400 mb-1">Correo Electrónico</label>
-                    <input id="email-input" type="email" required placeholder="tu@empresa.com" class="w-full bg-[#0B0F17] border border-slate-800/80 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+                    <label class="block text-[11px] font-medium text-slate-400 mb-1">Nombre de Usuario o Correo</label>
+                    <input id="login-user" type="text" required placeholder="ej. ibrah_trader" class="w-full bg-[#0B0F17] border border-slate-800/80 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
                 </div>
                 <div>
                     <label class="block text-[11px] font-medium text-slate-400 mb-1">Contraseña</label>
                     <input type="password" required placeholder="••••••••" class="w-full bg-[#0B0F17] border border-slate-800/80 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
                 </div>
                 <button type="submit" class="w-full bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold py-2.5 rounded-lg text-xs transition-all mt-1">
-                    Ingresar
+                    Iniciar Sesión
+                </button>
+            </form>
+
+            <!-- FORMULARIO DE REGISTRO -->
+            <form id="form-register" onsubmit="handleAuthSubmit(event, 'register')" class="space-y-3 hidden">
+                <div>
+                    <label class="block text-[11px] font-medium text-slate-400 mb-1">Nombre de Usuario</label>
+                    <input id="register-username" type="text" required placeholder="Tu apodo o nombre" class="w-full bg-[#0B0F17] border border-slate-800/80 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-medium text-slate-400 mb-1">Correo Electrónico</label>
+                    <input type="email" required placeholder="tu@correo.com" class="w-full bg-[#0B0F17] border border-slate-800/80 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-medium text-slate-400 mb-1">Contraseña</label>
+                    <input type="password" required placeholder="••••••••" class="w-full bg-[#0B0F17] border border-slate-800/80 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+                </div>
+                <button type="submit" class="w-full bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold py-2.5 rounded-lg text-xs transition-all mt-1">
+                    Crear Cuenta
                 </button>
             </form>
         </div>
@@ -302,25 +301,59 @@
             });
         }
 
-        function loginWithGoogle() {
-            closeAuthModal();
-            document.getElementById('landing-view').classList.add('hidden');
-            document.getElementById('dashboard-view').classList.remove('hidden');
-            document.getElementById('user-email-display').innerText = "Usuario Google";
-            
-            if(!chartInitialized) {
-                initTradingView("FX:EURUSD");
-                chartInitialized = true;
+        // Abrir Modal indicando pestaña inicial ('login' o 'register')
+        function openAuthModal(mode) {
+            document.getElementById('auth-modal').classList.remove('hidden');
+            switchTab(mode);
+        }
+
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.add('hidden');
+        }
+
+        // Alternar entre pestañas del modal
+        function switchTab(mode) {
+            const loginBtn = document.getElementById('tab-login-btn');
+            const registerBtn = document.getElementById('tab-register-btn');
+            const loginForm = document.getElementById('form-login');
+            const registerForm = document.getElementById('form-register');
+
+            if (mode === 'login') {
+                loginBtn.className = "flex-1 pb-2.5 text-xs font-semibold text-sky-400 border-b-2 border-sky-400 transition-all";
+                registerBtn.className = "flex-1 pb-2.5 text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all";
+                loginForm.classList.remove('hidden');
+                registerForm.classList.add('hidden');
+            } else {
+                registerBtn.className = "flex-1 pb-2.5 text-xs font-semibold text-sky-400 border-b-2 border-sky-400 transition-all";
+                loginBtn.className = "flex-1 pb-2.5 text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all";
+                registerForm.classList.remove('hidden');
+                loginForm.classList.add('hidden');
             }
         }
 
-        function handleEmailAuth(e) {
+        // Acceso con Google
+        function loginWithGoogle() {
+            enterDashboard("Trader Google");
+        }
+
+        // Envío de formulario (Login o Registro)
+        function handleAuthSubmit(e, type) {
             e.preventDefault();
-            const email = document.getElementById('email-input').value;
+            let username = "Trader";
+            if (type === 'login') {
+                username = document.getElementById('login-user').value;
+            } else {
+                username = document.getElementById('register-username').value;
+            }
+            enterDashboard(username);
+        }
+
+        // Pasar al Dashboard con el nombre del usuario
+        function enterDashboard(username) {
             closeAuthModal();
             document.getElementById('landing-view').classList.add('hidden');
             document.getElementById('dashboard-view').classList.remove('hidden');
-            document.getElementById('user-email-display').innerText = email;
+            document.getElementById('user-name-display').innerText = username;
             
             if(!chartInitialized) {
                 initTradingView("FX:EURUSD");
@@ -331,14 +364,6 @@
         function logout() {
             document.getElementById('dashboard-view').classList.add('hidden');
             document.getElementById('landing-view').classList.remove('hidden');
-        }
-
-        function openAuthModal() {
-            document.getElementById('auth-modal').classList.remove('hidden');
-        }
-
-        function closeAuthModal() {
-            document.getElementById('auth-modal').classList.add('hidden');
         }
 
         function toggleMainDropdown(id) {
