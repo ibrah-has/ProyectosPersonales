@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto Alpha — Plataforma de Trading</title>
+    <title>Proyecto Alpha — Plataforma de Trading Profesional</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -70,10 +70,10 @@
 
         <main class="flex-1 flex flex-col items-center justify-center px-6 py-20 text-center max-w-3xl mx-auto">
             <h1 class="text-4xl sm:text-5xl font-bold tracking-tight alpha-text leading-tight">
-                Tu centro de mando operacional para el <span class="alpha-accent">mercado financiero</span>
+                Terminal institucional y flujo de datos para el <span class="alpha-accent">trading profesional</span>
             </h1>
             <button onclick="openAuthModal()" class="mt-8 bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold px-6 py-3 rounded-lg text-xs shadow-md transition-all">
-                Comenzar Gratis
+                Acceder a la Terminal
             </button>
         </main>
     </div>
@@ -82,7 +82,7 @@
     <!-- VISTA 2: DASHBOARD GENERAL                 -->
     <!-- ========================================== -->
     <div id="dashboard-view" class="hidden flex-1 flex min-h-screen">
-        <!-- MENÚ LATERAL IZQUIERDO: MERCADOS FINANCIEROS Y TRADINGVIEW -->
+        <!-- MENÚ LATERAL IZQUIERDO -->
         <aside class="w-64 alpha-bg-card border-r alpha-border flex flex-col justify-between hidden md:flex">
             <div class="p-4 overflow-y-auto">
                 <div class="flex items-center gap-2 mb-6 px-2">
@@ -164,7 +164,7 @@
 
             <div class="p-6 flex-1 overflow-y-auto">
                 
-                <!-- PANTALLA PRINCIPAL: MINI WIDGETS / APARTADOS DIVIDIDOS -->
+                <!-- PANTALLA PRINCIPAL: MINI WIDGETS -->
                 <div id="main-widgets-grid" class="dashboard-section grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                     
                     <!-- Widget 1: Gráficos -->
@@ -198,8 +198,8 @@
                     <!-- Widget 5: Noticias -->
                     <div onclick="mostrarSeccion('noticias-panel')" class="alpha-bg-card hover:border-sky-500/50 border alpha-border p-5 rounded-2xl cursor-pointer transition-all shadow-lg group">
                         <div class="w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-4 group-hover:scale-110 transition-transform">📰</div>
-                        <h3 class="text-sm font-bold alpha-text mb-1">Noticias del Mercado</h3>
-                        <p class="text-xs alpha-text-dim">Calendario económico y noticias de alto impacto en tiempo real.</p>
+                        <h3 class="text-sm font-bold alpha-text mb-1">Terminal de Noticias</h3>
+                        <p class="text-xs alpha-text-dim">Flujo continuo de última hora corporativa, macro y activos financieros.</p>
                     </div>
 
                 </div>
@@ -244,13 +244,29 @@
                     <p class="text-xs alpha-text-muted">Configuración de límites de pérdida diaria y gestión del riesgo por operación.</p>
                 </div>
 
-                <!-- SECCIÓN DETALLE 5: NOTICIAS -->
-                <div id="noticias-panel" class="dashboard-section hidden max-w-2xl mx-auto alpha-bg-card border alpha-border p-6 rounded-2xl shadow-xl">
+                <!-- SECCIÓN DETALLE 5: TERMINAL DE NOTICIAS EXTENDIDA -->
+                <div id="noticias-panel" class="dashboard-section hidden max-w-5xl mx-auto flex flex-col">
                     <div class="flex items-center justify-between mb-6 pb-4 border-b alpha-border">
-                        <h3 class="text-sm font-bold alpha-text">📰 Noticias y Calendario</h3>
-                        <button onclick="volverAlGrid()" class="bg-slate-500/20 alpha-text px-3 py-1.5 rounded-lg text-xs font-medium">← Volver</button>
+                        <div>
+                            <h3 class="text-sm font-bold alpha-text">📰 Terminal de Noticias Institucionales</h3>
+                            <p class="text-[11px] alpha-text-dim">Flujo continuo en directo. Haz clic en cualquier titular para abrir el desglose y análisis de impacto.</p>
+                        </div>
+                        <button onclick="volverAlGrid()" class="bg-slate-500/20 alpha-text px-3 py-1.5 rounded-lg text-xs font-medium">← Volver al Menú</button>
                     </div>
-                    <p class="text-xs alpha-text-muted">Próximos eventos macroeconómicos de alto impacto mundial.</p>
+
+                    <!-- Filtros rápidos por categoría -->
+                    <div class="flex items-center gap-2 mb-6 overflow-x-auto pb-2">
+                        <button onclick="filtrarNoticias('todos')" class="bg-sky-500 text-slate-950 font-semibold text-xs px-3 py-1.5 rounded-lg transition-all shadow-sm">Todos</button>
+                        <button onclick="filtrarNoticias('Acciones')" class="alpha-bg-card border alpha-border alpha-text-muted hover:text-sky-400 text-xs px-3 py-1.5 rounded-lg transition-all">Acciones</button>
+                        <button onclick="filtrarNoticias('Cripto')" class="alpha-bg-card border alpha-border alpha-text-muted hover:text-sky-400 text-xs px-3 py-1.5 rounded-lg transition-all">Cripto</button>
+                        <button onclick="filtrarNoticias('Forex')" class="alpha-bg-card border alpha-border alpha-text-muted hover:text-sky-400 text-xs px-3 py-1.5 rounded-lg transition-all">Forex</button>
+                        <button onclick="filtrarNoticias('Macro')" class="alpha-bg-card border alpha-border alpha-text-muted hover:text-sky-400 text-xs px-3 py-1.5 rounded-lg transition-all">Macroeconomía</button>
+                    </div>
+
+                    <!-- Contenedor dinámico de Noticias -->
+                    <div id="news-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Las noticias se inyectan dinámicamente vía JavaScript -->
+                    </div>
                 </div>
 
                 <!-- PERFIL -->
@@ -282,12 +298,38 @@
     <div id="auth-modal" class="hidden fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="alpha-bg-card border alpha-border w-full max-w-sm rounded-2xl p-6 shadow-2xl relative">
             <button onclick="closeAuthModal()" class="absolute top-5 right-5 alpha-text-dim">✕</button>
-            <h3 class="text-sm font-bold alpha-text mb-4">Acceso</h3>
+            <h3 class="text-sm font-bold alpha-text mb-4">Acceso Institucional</h3>
             <form onsubmit="handleAuthSubmit(event)" class="space-y-3">
-                <input id="auth-username" type="text" required placeholder="Nombre de usuario" class="w-full alpha-bg-input border alpha-border rounded-lg px-3 py-2 text-xs alpha-text">
-                <input type="password" required placeholder="Contraseña" class="w-full alpha-bg-input border alpha-border rounded-lg px-3 py-2 text-xs alpha-text">
-                <button type="submit" class="w-full bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold py-2.5 rounded-lg text-xs">Entrar</button>
+                <input id="auth-username" type="text" required placeholder="ID de operador o usuario" class="w-full alpha-bg-input border alpha-border rounded-lg px-3 py-2 text-xs alpha-text">
+                <input type="password" required placeholder="Clave de acceso segura" class="w-full alpha-bg-input border alpha-border rounded-lg px-3 py-2 text-xs alpha-text">
+                <button type="submit" class="w-full bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold py-2.5 rounded-lg text-xs">Entrar a Terminal</button>
             </form>
+        </div>
+    </div>
+
+    <!-- MODAL LECTURA NOTICIA COMPLETA (ESTILO TRADINGVIEW) -->
+    <div id="news-detail-modal" class="hidden fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+        <div class="alpha-bg-card border alpha-border w-full max-w-2xl rounded-2xl p-6 sm:p-8 shadow-2xl relative my-8">
+            <button onclick="cerrarNoticiaDetalle()" class="absolute top-6 right-6 alpha-text-dim hover:alpha-text text-base font-bold bg-slate-500/10 w-8 h-8 rounded-full flex items-center justify-center transition-colors">✕</button>
+            
+            <div class="flex items-center gap-3 mb-4">
+                <span id="modal-news-badge" class="bg-sky-500/10 text-sky-400 border border-sky-500/20 text-[10px] font-semibold px-3 py-1 rounded-full">--</span>
+                <span id="modal-news-time" class="text-xs alpha-text-dim font-mono">--</span>
+            </div>
+
+            <h2 id="modal-news-title" class="text-lg sm:text-xl font-extrabold alpha-text mb-4 leading-snug">--</h2>
+            
+            <div class="border-t alpha-border pt-4 space-y-4 text-xs sm:text-sm alpha-text-muted leading-relaxed" id="modal-news-body">
+                <!-- Cuerpo detallado -->
+            </div>
+
+            <!-- Botones de Acción inferior -->
+            <div class="mt-8 pt-4 border-t alpha-border flex flex-wrap items-center justify-between gap-3">
+                <a id="modal-tv-link" href="https://es.tradingview.com/symbols/NASDAQ-AAPL/" target="_blank" class="bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/30 font-semibold px-4 py-2 rounded-lg text-xs transition-all flex items-center gap-2">
+                    📈 Saber más en TradingView →
+                </a>
+                <button onclick="cerrarNoticiaDetalle()" class="bg-slate-500/20 hover:bg-slate-500/30 alpha-text font-semibold px-4 py-2 rounded-lg text-xs transition-all">Cerrar Artículo</button>
+            </div>
         </div>
     </div>
 
@@ -296,10 +338,151 @@
     <script>
         let tvWidget = null;
 
+        // Base de datos ampliada con enlaces específicos a TradingView por cada activo
+        const noticiasData = {
+            1: {
+                category: "Acciones",
+                badge: "Acciones • AAPL",
+                time: "Hace 12 min",
+                title: "Apple anuncia novedades en su división de servicios y sus acciones rebotan un 1.4%",
+                snippet: "Los inversores han acogido con optimismo los informes de ingresos previstos para el cierre trimestral...",
+                tvUrl: "https://es.tradingview.com/symbols/NASDAQ-AAPL/",
+                body: `
+                    <p>Cupertino — Apple Inc. ha comunicado este viernes una serie de actualizaciones estratégicas enfocadas en su ecosistema de servicios digitales y monetización de aplicaciones que han revitalizado el optimismo en Wall Street.</p>
+                    <p>Durante las últimas sesiones, el valor había experimentado una ligera corrección técnica debido a la cautela general del sector tecnológico frente a los datos de empleo en Estados Unidos. Sin embargo, los analistas de mesa han señalado que la diversificación hacia servicios de suscripción de alta fidelidad protege el margen operativo de la compañía.</p>
+                    <p><strong>Impacto de Mercado:</strong> El volumen en el pre-market superó la media de los últimos treinta días, empujando el precio de la acción hacia una resistencia clave de corto plazo. Los operadores técnicos vigilan de cerca si el impulso logra sostener el cierre semanal.</p>
+                `
+            },
+            2: {
+                category: "Cripto",
+                badge: "Criptomonedas • BTC",
+                time: "Hace 35 min",
+                title: "Bitcoin consolida soporte clave sobre la zona psicológica tras la apertura institucional",
+                snippet: "El flujo de entrada en los ETFs al contado muestra signos de recuperación constante mientras el precio...",
+                tvUrl: "https://es.tradingview.com/symbols/BTCUSDT/",
+                body: `
+                    <p>El mercado de activos digitales registra una sesión de alta actividad institucional, destacando la resiliencia de Bitcoin frente a los intentos de presión vendedora por parte de mineros en carteras frías.</p>
+                    <p>Los flujos netos hacia los fondos cotizados (ETFs) basados en contado en Norteamérica han vuelto a mostrar números verdes consecutivos, lo que demuestra un apetito constante por parte de las gestoras de fondos tradicionales.</p>
+                    <p><strong>Perspectiva Técnica:</strong> Los analistas on-chain indican que la oferta disponible en exchanges centralizados continúa reduciéndose, favoreciendo movimientos alcistas repentinos.</p>
+                `
+            },
+            3: {
+                category: "Forex",
+                badge: "Forex • EUR/USD",
+                time: "Hace 1 hora",
+                title: "El euro se estabiliza a la espera de los datos de inflación de la Eurozona",
+                snippet: "Los operadores mantienen la cautela en los pares mayores principales ante la publicación del IPC europeo...",
+                tvUrl: "https://es.tradingview.com/symbols/EURUSD/",
+                body: `
+                    <p>El par principal EUR/USD opera en un rango lateral muy estrecho mientras los cambistas e inversores institucionales prefieren mantener posiciones neutrales a la espera del informe definitivo del Índice de Precios de Consumo (IPC).</p>
+                    <p>Las actas recientes del Banco Central Europeo (BCE) sugieren que cualquier lectura inesperada en la inflación subyacente alterará de inmediato las expectativas sobre los tipos de interés.</p>
+                    <p><strong>Niveles Operativos:</strong> El soporte inmediato se mantiene firme en la zona de mínimos anteriores, con una resistencia superior vigilada de cerca.</p>
+                `
+            },
+            4: {
+                category: "Macro",
+                badge: "Macroeconomía • FED",
+                time: "Hace 2 horas",
+                title: "Miembros de la Reserva Federal apuntan a una postura neutral en las próximas decisiones de tipos",
+                snippet: "Las declaraciones recientes recalcan que las decisiones dependerán estrictamente de los próximos indicadores...",
+                tvUrl: "https://es.tradingview.com/markets/currencies/economic-calendar/",
+                body: `
+                    <p>En declaraciones públicas recientes, altos funcionarios de la Reserva Federal de Estados Unidos han recalcado que la política monetaria se encuentra en un punto de dependencia estricta de los datos macroeconómicos entrantes.</p>
+                    <p>Aunque las presiones inflacionarias han mostrado una tendencia descendente general, la fortaleza continuada del mercado laboral impide una relajación prematura.</p>
+                    <p><strong>Lectura del Mercado:</strong> Los futuros sobre fondos federales reflejan una probabilidad dividida para las próximas reuniones clave.</p>
+                `
+            },
+            5: {
+                category: "Acciones",
+                badge: "Acciones • TSLA",
+                time: "Hace 3 horas",
+                title: "Tesla expande su red de carga y anuncia acuerdos estratégicos con fabricantes asiáticos",
+                snippet: "La directiva de Tesla confirma nuevas alianzas para estandarizar estaciones de carga rápida en mercados emergentes...",
+                tvUrl: "https://es.tradingview.com/symbols/NASDAQ-TSLA/",
+                body: `
+                    <p>Austin — Tesla ha cerrado alianzas clave con principales conglomerados automotrices en Asia para integrar su tecnología de conectividad y carga en flotas comerciales de próxima generación.</p>
+                    <p>La noticia ha generado un impacto directo en la cotización intradía, atrayendo flujos de inversión institucional hacia el sector de vehículos eléctricos tras meses de consolidación de precios.</p>
+                    <p><strong>Análisis Operativo:</strong> Los volúmenes de negociación muestran acumulación institucional en soportes diarios, con miras a probar los máximos del mes anterior.</p>
+                `
+            },
+            6: {
+                category: "Cripto",
+                badge: "Criptomonedas • ETH",
+                time: "Hace 4 horas",
+                title: "Ethereum registra picos de actividad en contratos inteligentes y quema de tokens",
+                snippet: "La actividad en la red de capa principal incrementa la eficiencia de costes operativos para protocolos DeFi...",
+                tvUrl: "https://es.tradingview.com/symbols/ETHUSDT/",
+                body: `
+                    <p>La red Ethereum experimenta un incremento notable en la ejecución de contratos inteligentes orientados al ecosistema de finanzas descentralizadas (DeFi) y tokenización de activos del mundo real (RWA).</p>
+                    <p>Este incremento en el uso directo de la red se traduce en una mayor tasa de quema de comisiones (fee burn), lo que refuerza el atractivo deflacionario del activo a medio plazo.</p>
+                    <p><strong>Perspectiva:</strong> Los analistas técnicos destacan la formación de un patrón de acumulación alcista en gráficos de 4 horas.</p>
+                `
+            },
+            7: {
+                category: "Forex",
+                badge: "Forex • GBP/USD",
+                time: "Hace 5 horas",
+                title: "La libra esterlina reacciona al alza tras conocerse el índice de empleo en el Reino Unido",
+                snippet: "Los datos de creación de empleo superan las previsiones de los analistas de la City de Londres...",
+                tvUrl: "https://es.tradingview.com/symbols/GBPUSD/",
+                body: `
+                    <p>Londres — La libra esterlina (GBP) ha ganado tracción frente al dólar estadounidense tras la publicación de los registros de empleo del ONS, los cuales superaron las expectativas consensuadas del mercado.</p>
+                    <p>El mercado de futuros de tipos de interés en el Reino Unido ha ajustado sus previsiones sobre las próximas bajadas de tipos por parte del Banco de Inglaterra (BoE).</p>
+                    <p><strong>Estrategia:</strong> El par busca consolidar ruptura de canales previos en gráficos diarios.</p>
+                `
+            },
+            8: {
+                category: "Macro",
+                badge: "Macroeconomía • BCE",
+                time: "Hace 6 horas",
+                title: "El Banco Central Europeo evalúa el impacto del tipo de cambio en las exportaciones comunitarias",
+                snippet: "Informes internos sugieren vigilancia estrecha sobre la fortaleza del euro frente a divisas emergentes...",
+                tvUrl: "https://es.tradingview.com/symbols/EURUSD/",
+                body: `
+                    <p>Fráncfort — Expertos económicos del Banco Central Europeo han publicado un documento de trabajo donde analizan el comportamiento competitivo del sector industrial europeo ante la fluctuación reciente del tipo de cambio.</p>
+                    <p>El organismo subraya que la estabilidad de precios sigue siendo el mandato principal, sin descuidar los riesgos asociados a la desaceleración del comercio global.</p>
+                    <p><strong>Impacto:</strong> Reacción moderada en los índices de renta variable europea tras conocerse las conclusiones del informe.</p>
+                `
+            }
+        };
+
         window.addEventListener('DOMContentLoaded', () => {
             const savedUser = localStorage.getItem('alpha_logged_user');
             if (savedUser) { enterDashboard(savedUser, false); }
+            renderizarNoticias('todos');
         });
+
+        function renderizarNoticias(categoriaFiltro) {
+            const container = document.getElementById('news-container');
+            container.innerHTML = "";
+
+            Object.keys(noticiasData).forEach(id => {
+                const item = noticiasData[id];
+                if (categoriaFiltro === 'todos' || item.category === categoriaFiltro) {
+                    const card = document.createElement('div');
+                    card.className = "alpha-bg-card border alpha-border p-5 rounded-2xl shadow-md cursor-pointer transition-all hover:border-sky-500/60 hover:scale-[1.01] flex flex-col justify-between";
+                    card.setAttribute('onclick', `abrirNoticiaDetalle(${id})`);
+                    card.innerHTML = `
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="bg-sky-500/10 text-sky-400 border border-sky-500/20 text-[10px] font-semibold px-2.5 py-0.5 rounded-full">${item.badge}</span>
+                                <span class="text-[11px] alpha-text-dim font-mono">${item.time}</span>
+                            </div>
+                            <h4 class="text-sm font-bold alpha-text mb-1">${item.title}</h4>
+                            <p class="text-xs alpha-text-muted leading-relaxed">${item.snippet}</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t alpha-border flex items-center justify-between text-[11px] alpha-accent font-semibold">
+                            <span>Leer análisis completo →</span>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                }
+            });
+        }
+
+        function filtrarNoticias(cat) {
+            renderizarNoticias(cat);
+        }
 
         function initTradingView(symbolToLoad, themeMode) {
             document.getElementById('tradingview_advanced_chart').innerHTML = "";
@@ -364,6 +547,24 @@
         function cambiarTemaGlobal(nuevoTema) {
             document.body.setAttribute('data-theme', nuevoTema);
             if(tvWidget) initTradingView("FX:EURUSD", nuevoTema);
+        }
+
+        // Funciones para el Modal de Noticia Completa
+        function abrirNoticiaDetalle(id) {
+            const noticia = noticiasData[id];
+            if (!noticia) return;
+
+            document.getElementById('modal-news-badge').innerText = noticia.badge;
+            document.getElementById('modal-news-time').innerText = noticia.time;
+            document.getElementById('modal-news-title').innerText = noticia.title;
+            document.getElementById('modal-news-body').innerHTML = noticia.body;
+            document.getElementById('modal-tv-link').setAttribute('href', noticia.tvUrl);
+
+            document.getElementById('news-detail-modal').classList.remove('hidden');
+        }
+
+        function cerrarNoticiaDetalle() {
+            document.getElementById('news-detail-modal').classList.add('hidden');
         }
     </script>
 </body>
