@@ -3,161 +3,529 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Aplicación - Perfil y Ajustes</title>
+    <title>Proyecto Alpha — Plataforma de Trading</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            display: flex;
-            background-color: #f4f7f6;
+            background-color: #0B0F17;
+            color: #F1F5F9;
         }
-        /* Barra lateral de navegación */
-        sidebar {
-            width: 250px;
-            background: #2c3e50;
-            color: white;
-            height: 100vh;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        sidebar h3 { margin-top: 0; }
-        sidebar ul { list-style: none; padding: 0; }
-        sidebar li {
-            padding: 10px 15px;
-            margin-bottom: 5px;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: background 0.2s;
-        }
-        sidebar li:hover { background: #34495e; }
-
-        /* Contenido principal */
-        main {
-            flex-grow: 1;
-            padding: 40px;
-            box-sizing: border-box;
-            height: 100vh;
-            overflow-y: auto;
-        }
-        .view { display: none; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .view.active { display: block; }
-
-        /* Estilos generales de formularios y botones */
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .form-group input[readonly] { background-color: #e9ecef; }
-        .btn {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            color: white;
-        }
-        .btn-primary { background: #3498db; }
-        .btn-success { background: #2ecc71; }
     </style>
 </head>
-<body>
+<body class="font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-sky-500 selection:text-slate-950">
 
-    <!-- Menú de Navegación -->
-    <sidebar>
-        <h3>Mi Web</h3>
-        <ul>
-            <li onclick="cambiarVista('home-view')">🏠 Inicio</li>
-            <li onclick="cambiarVista('profile-view')">👤 Mi Perfil</li>
-            <li onclick="cambiarVista('settings-view')">⚙️ Ajustes</li>
-        </ul>
-    </sidebar>
-
-    <!-- Contenedor de las Vistas -->
-    <main>
-        <!-- 1. Vista de Inicio -->
-        <div id="home-view" class="view active">
-            <h2>Bienvenido</h2>
-            <p>Selecciona una opción en el menú de la izquierda para ver tu perfil o modificar tus ajustes.</p>
-        </div>
-
-        <!-- 2. Vista de Perfil -->
-        <div id="profile-view" class="view">
-            <h2>Mi Perfil de Usuario</h2>
-            <div class="form-group">
-                <label>Nombre:</label>
-                <input type="text" id="prof-nombre" value="Juan Pérez" readonly>
+    <!-- ========================================== -->
+    <!-- VISTA 1: PÁGINA DE INICIO (LANDING PAGE) -->
+    <!-- ========================================== -->
+    <div id="landing-view" class="flex flex-col min-h-screen justify-between w-full">
+        <!-- Barra de Navegación -->
+        <header class="w-full bg-[#0F1623]/90 backdrop-blur-md border-b border-slate-800/80 sticky top-0 z-50 px-6 lg:px-12 py-3.5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-7 h-7 bg-sky-500/10 border border-sky-500/30 rounded-lg flex items-center justify-center font-bold text-sky-400 text-xs">α</div>
+                <span class="text-base font-bold tracking-tight text-slate-100">PROYECTO <span class="text-sky-400 font-extrabold">ALPHA</span></span>
             </div>
-            <div class="form-group">
-                <label>Correo Electrónico:</label>
-                <input type="email" id="prof-email" value="juan.perez@example.com" readonly>
+
+            <!-- Menús de Navegación Central -->
+            <nav class="hidden md:flex items-center gap-8 text-xs font-medium text-slate-300">
+                <div class="relative">
+                    <button onclick="toggleMainDropdown('landing-dropdown')" class="flex items-center gap-1.5 hover:text-sky-400 transition-colors py-1">
+                        <span>Mercados</span>
+                        <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    
+                    <!-- Menú Desplegable con Todos los Mercados en Landing -->
+                    <div id="landing-dropdown" class="hidden absolute left-0 mt-2 w-60 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl z-50 py-1.5">
+                        <div class="px-3.5 py-1 text-[10px] uppercase tracking-wider text-slate-500 font-semibold">Categorías de Mercados</div>
+                        
+                        <!-- Forex -->
+                        <div class="relative group">
+                            <button class="w-full text-left px-3.5 py-2 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400 flex items-center justify-between transition-colors">
+                                <span>💱 Forex (Divisas)</span>
+                                <span class="text-[10px] text-slate-500">▶</span>
+                            </button>
+                            <div class="hidden group-hover:block absolute left-full top-0 w-44 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl py-1 ml-1 z-50">
+                                <button onclick="openAuthModal('login')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">EUR / USD</button>
+                                <button onclick="openAuthModal('login')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">GBP / USD</button>
+                                <button onclick="openAuthModal('login')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">USD / JPY</button>
+                            </div>
+                        </div>
+
+                        <!-- Criptomonedas -->
+                        <div class="relative group">
+                            <button class="w-full text-left px-3.5 py-2 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400 flex items-center justify-between transition-colors">
+                                <span>🪙 Criptomonedas</span>
+                                <span class="text-[10px] text-slate-500">▶</span>
+                            </button>
+                            <div class="hidden group-hover:block absolute left-full top-0 w-44 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl py-1 ml-1 z-50">
+                                <button onclick="openAuthModal('login')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">BTC / USDT</button>
+                                <button onclick="openAuthModal('login')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">ETH / USDT</button>
+                                <button onclick="openAuthModal('login')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">SOL / USDT</button>
+                            </div>
+                        </div>
+
+                        <!-- Índices Bursátiles -->
+                        <div class="relative group">
+                            <button class="w-full text-left px-3.5 py-2 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400 flex items-center justify-between transition-colors">
+                                <span>📈 Índices Globales</span>
+                                <span class="text-[10px] text-slate-500">▶</span>
+                            </button>
+                            <div class="hidden group-hover:block absolute left-full top-0 w-44 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl py-1 ml-1 z-50">
+                                <button onclick="openAuthModal('login')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">S&P 500 (SPX)</button>
+                                <button onclick="openAuthModal('login')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">Nasdaq 100 (NDX)</button>
+                                <button onclick="openAuthModal('login')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">DAX 40 (GER40)</button>
+                            </div>
+                        </div>
+
+                        <!-- Materias Primas -->
+                        <div class="relative group">
+                            <button class="w-full text-left px-3.5 py-2 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400 flex items-center justify-between transition-colors">
+                                <span>🛢️ Materias Primas</span>
+                                <span class="text-[10px] text-slate-500">▶</span>
+                            </button>
+                            <div class="hidden group-hover:block absolute left-full top-0 w-44 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl py-1 ml-1 z-50">
+                                <button onclick="openAuthModal('login')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">Oro / Dólar (XAUUSD)</button>
+                                <button onclick="openAuthModal('login')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">Petróleo Crude (USOIL)</button>
+                            </div>
+                        </div>
+
+                        <!-- Acciones -->
+                        <div class="relative group">
+                            <button class="w-full text-left px-3.5 py-2 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400 flex items-center justify-between transition-colors">
+                                <span>🏢 Acciones (US)</span>
+                                <span class="text-[10px] text-slate-500">▶</span>
+                            </button>
+                            <div class="hidden group-hover:block absolute left-full top-0 w-44 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl py-1 ml-1 z-50">
+                                <button onclick="openAuthModal('login')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">Apple (AAPL)</button>
+                                <button onclick="openAuthModal('login')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">Tesla (TSLA)</button>
+                                <button onclick="openAuthModal('login')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">Nvidia (NVDA)</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#funciones" class="hover:text-sky-400 transition-colors">Noticias</a>
+                <a href="#funciones" class="hover:text-sky-400 transition-colors">Centro de Ayuda</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <button onclick="openAuthModal('login')" class="bg-transparent hover:bg-slate-800 text-slate-300 px-3 py-2 rounded-lg text-xs font-medium transition-all">
+                    Iniciar Sesión
+                </button>
+                <button onclick="openAuthModal('register')" class="bg-sky-500 hover:bg-sky-400 text-slate-950 px-3.5 py-2 rounded-lg text-xs font-semibold transition-all shadow-md shadow-sky-500/10">
+                    Registrarse
+                </button>
             </div>
-            <div class="form-group">
-                <label>Biografía:</label>
-                <textarea id="prof-bio" rows="3" readonly>Desarrollador web apasionado por la tecnología.</textarea>
+        </header>
+
+        <!-- Hero Section -->
+        <main class="flex-1 flex flex-col items-center justify-center px-6 py-20 text-center max-w-3xl mx-auto">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-xs font-medium mb-6">
+                <span class="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span>
+                Infraestructura para Trading Profesional
             </div>
-            <button id="btn-editar-perfil" class="btn btn-primary" onclick="alternarEdicionPerfil()">Editar Perfil</button>
-            <button id="btn-guardar-perfil" class="btn btn-success" style="display:none;" onclick="guardarPerfil()">Guardar Cambios</button>
-        </div>
+            <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-slate-100 leading-tight">
+                Tu centro de mando operacional para el <span class="text-sky-400">mercado financiero</span>
+            </h1>
+            <p class="mt-5 text-sm sm:text-base text-slate-400 max-w-xl leading-relaxed">
+                Gestiona tu riesgo cuantitativo, analiza gráficos institucionales en tiempo real y optimiza cada operación con métricas avanzadas.
+            </p>
 
-        <!-- 3. Vista de Ajustes (La que ya tenías) -->
-        <div id="settings-view" class="view">
-            <h2>Ajustes de la Aplicación</h2>
-            <div class="form-group">
-                <label><input type="checkbox" id="notif-check" checked> Habilitar notificaciones</label>
+            <div class="mt-8 flex flex-wrap justify-center gap-3">
+                <button onclick="openAuthModal('register')" class="bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold px-6 py-3 rounded-lg text-xs shadow-md shadow-sky-500/10 transition-all">
+                    Comenzar Gratis
+                </button>
             </div>
-            <div class="form-group">
-                <label>Tema de la interfaz:</label>
-                <select id="theme-select">
-                    <option value="light">Claro</option>
-                    <option value="dark">Oscuro</option>
-                </select>
+        </main>
+
+        <!-- Funciones Principales -->
+        <section id="funciones" class="bg-[#0E131F] border-t border-slate-800/60 py-16 px-6 lg:px-12">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 text-center mb-10">Módulos del Sistema</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    <div class="bg-[#131A29] border border-slate-800/80 p-5 rounded-xl">
+                        <div class="w-8 h-8 bg-sky-500/10 rounded-lg flex items-center justify-center text-sky-400 text-sm mb-3">📊</div>
+                        <h3 class="font-semibold text-slate-200 text-xs">Gestión de Riesgo</h3>
+                        <p class="text-xs text-slate-400 mt-1 leading-relaxed">Dimensionamiento de posición y límites de exposición.</p>
+                    </div>
+                    <div class="bg-[#131A29] border border-slate-800/80 p-5 rounded-xl">
+                        <div class="w-8 h-8 bg-sky-500/10 rounded-lg flex items-center justify-center text-sky-400 text-sm mb-3">📝</div>
+                        <h3 class="font-semibold text-slate-200 text-xs">Diario Operativo</h3>
+                        <p class="text-xs text-slate-400 mt-1 leading-relaxed">Registro detallado de ejecuciones y métricas R:R.</p>
+                    </div>
+                    <div class="bg-[#131A29] border border-slate-800/80 p-5 rounded-xl">
+                        <div class="w-8 h-8 bg-sky-500/10 rounded-lg flex items-center justify-center text-sky-400 text-sm mb-3">🌐</div>
+                        <h3 class="font-semibold text-slate-200 text-xs">Calendario Macro</h3>
+                        <p class="text-xs text-slate-400 mt-1 leading-relaxed">Alertas de alto impacto macroeconómico.</p>
+                    </div>
+                    <div class="bg-[#131A29] border border-slate-800/80 p-5 rounded-xl">
+                        <div class="w-8 h-8 bg-sky-500/10 rounded-lg flex items-center justify-center text-sky-400 text-sm mb-3">📈</div>
+                        <h3 class="font-semibold text-slate-200 text-xs">Análisis Estadístico</h3>
+                        <p class="text-xs text-slate-400 mt-1 leading-relaxed">Evaluación del rendimiento histórico de tu operativa.</p>
+                    </div>
+                </div>
             </div>
-            <button class="btn btn-primary" onclick="guardarAjustes()">Guardar Ajustes</button>
-        </div>
-    </main>
+        </section>
 
-    <script>
-        // Función unificada para cambiar entre vistas limpiamente
-        function cambiarVista(vistaId) {
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            document.getElementById(vistaId).classList.add('active');
-        }
+        <footer class="border-t border-slate-800/60 py-5 text-center text-xs text-slate-500">
+            Proyecto Alpha Systems © 2026 — Plataforma Institucional.
+        </footer>
+    </div>
 
-        // Lógica de edición del perfil
-        function alternarEdicionPerfil() {
-            const inputs = document.querySelectorAll('#profile-view input:not([type="hidden"]), #profile-view textarea');
-            const btnEditar = document.getElementById('btn-editar-perfil');
-            const btnGuardar = document.getElementById('btn-guardar-perfil');
 
-            inputs.forEach(input => input.removeAttribute('readonly'));
-            btnEditar.style.display = 'none';
-            btnGuardar.style.display = 'inline-block';
-        }
+    <!-- ========================================== -->
+    <!-- VISTA 2: DASHBOARD DE TRADING              -->
+    <!-- ========================================== -->
+    <div id="dashboard-view" class="hidden flex-1 flex min-h-screen">
+        <!-- Menú Lateral -->
+        <aside class="w-60 bg-[#0E131F] border-r border-slate-800/80 flex flex-col justify-between hidden md:flex">
+            <div class="p-5">
+                <div class="flex items-center gap-2 mb-6">
+                    <div class="w-6 h-6 bg-sky-500/10 border border-sky-500/30 rounded flex items-center justify-center font-bold text-sky-400 text-xs">α</div>
+                    <span class="text-xs font-bold tracking-tight text-slate-200">PROYECTO <span class="text-sky-400">ALPHA</span></span>
+                </div>
+                
+                <nav class="space-y-1">
+                    <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-sky-500/10 text-sky-400 font-medium text-xs">
+                        <span>📊</span> Dashboard
+                    </a>
+                    <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-400 hover:bg-[#131A29] hover:text-slate-200 font-medium text-xs transition-colors">
+                        <span>📝</span> Diario de Trading
+                    </a>
+                    <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-400 hover:bg-[#131A29] hover:text-slate-200 font-medium text-xs transition-colors">
+                        <span>🧮</span> Cálculo de Riesgo
+                    </a>
+                    <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-400 hover:bg-[#131A29] hover:text-slate-200 font-medium text-xs transition-colors">
+                        <span>📰</span> Noticias
+                    </a>
+                </nav>
+            </div>
 
-        function guardarPerfil() {
-            const inputs = document.querySelectorAll('#profile-view input:not([type="hidden"]), #profile-view textarea');
-            const btnEditar = document.getElementById('btn-editar-perfil');
-            const btnGuardar = document.getElementById('btn-guardar-perfil');
+            <!-- SECCIÓN INFERIOR: AJUSTES Y USUARIO -->
+            <div class="p-4 border-t border-slate-800/80 relative">
+                <!-- Menú Desplegable de Ajustes -->
+                <div id="settings-dropdown" class="hidden absolute bottom-full left-4 right-4 mb-2 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl py-1.5 z-50">
+                    <div class="px-3.5 py-1.5 border-b border-slate-800 mb-1">
+                        <p class="text-[10px] text-slate-500 uppercase font-semibold">Conectado como</p>
+                        <p id="user-name-display" class="text-xs text-sky-400 font-bold truncate">--</p>
+                    </div>
+                    <button onclick="alert('Abriendo perfil de usuario...')" class="w-full text-left px-3.5 py-2 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400 flex items-center gap-2 transition-colors">
+                        <span>👤</span> Mi Perfil
+                    </button>
+                    <button onclick="alert('Configuración de preferencias guardada')" class="w-full text-left px-3.5 py-2 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400 flex items-center gap-2 transition-colors">
+                        <span>⚙️</span> Preferencias
+                    </button>
+                    <div class="border-t border-slate-800 my-1"></div>
+                    <button onclick="logout()" class="w-full text-left px-3.5 py-2 text-xs text-rose-400 hover:bg-rose-500/10 hover:text-rose-300 flex items-center gap-2 transition-colors font-medium">
+                        <span>🚪</span> Cerrar Sesión
+                    </button>
+                </div>
 
-            inputs.forEach(input => input.setAttribute('readonly', true));
-            btnGuardar.style.display = 'none';
-            btnEditar.style.display = 'inline-block';
+                <!-- Botón principal de Ajustes (Abajo a la izquierda) -->
+                <button onclick="toggleSettingsMenu()" class="w-full flex items-center justify-between p-2 rounded-xl bg-[#131A29] hover:bg-[#1B2436] border border-slate-800/80 transition-all text-left">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-7 h-7 rounded-lg bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 text-xs font-bold">⚙️</div>
+                        <div>
+                            <p class="text-xs font-semibold text-slate-200">Ajustes</p>
+                            <p class="text-[10px] text-slate-400">Configuración</p>
+                        </div>
+                    </div>
+                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+            </div>
+        </aside>
 
-            alert('¡Perfil guardado correctamente!');
-        }
+        <!-- Contenido Dashboard -->
+        <main class="flex-1 flex flex-col min-w-0">
+            <header class="h-14 bg-[#0E131F]/60 backdrop-blur border-b border-slate-800/80 flex items-center justify-between px-6">
+                <h2 class="text-xs font-medium text-slate-300">Terminal Principal</h2>
+                <div class="flex items-center gap-2 text-xs text-emerald-400 font-mono">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Mercado Activo
+                </div>
+            </header>
 
-        // Lógica de ajustes
-        function guardarAjustes() {
-            const notificaciones = document.getElementById('notif-check').checked;
-            const tema = document.getElementById('theme-select').value;
+            <div class="p-6 flex-1 space-y-5">
+                <!-- Tarjetas de métricas -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-[#131A29] border border-slate-800/80 p-4 rounded-xl">
+                        <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Capital de Cuenta</p>
+                        <p class="text-xl font-bold text-slate-100 mt-1">$0.00</p>
+                    </div>
+                    <div class="bg-[#131A29] border border-slate-800/80 p-4 rounded-xl">
+                        <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Ratio Esperanza (R:R)</p>
+                        <p class="text-xl font-bold text-sky-400 mt-1">0.00</p>
+                    </div>
+                    <div class="bg-[#131A29] border border-slate-800/80 p-4 rounded-xl">
+                        <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Exposición Activa</p>
+                        <p class="text-xl font-bold text-slate-300 mt-1">0 Lotes</p>
+                    </div>
+                </div>
+
+                <!-- Gráfico de TradingView -->
+                <div class="bg-[#131A29] border border-slate-800/80 p-4 rounded-xl h-[520px] flex flex-col relative z-20">
+                    <div class="flex flex-col sm:flex-row justify-between items-center mb-3 px-1 gap-2">
+                        <h3 class="text-xs font-medium text-slate-300">Análisis Gráfico</h3>
+                        
+                        <div class="relative">
+                            <button onclick="toggleMainDropdown('dashboard-dropdown')" class="flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-lg bg-[#1B2436] text-slate-200 border border-slate-700/60 hover:bg-[#222E45] transition-colors">
+                                <span>Activo: <strong id="market-selected" class="text-sky-400 font-semibold">EUR/USD (Forex)</strong></span>
+                                <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            
+                            <!-- Menú Desplegable con Todos los Mercados en Dashboard -->
+                            <div id="dashboard-dropdown" class="hidden absolute right-0 mt-2 w-60 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl z-50 py-1.5">
+                                <div class="px-3.5 py-1 text-[10px] uppercase tracking-wider text-slate-500 font-semibold">Seleccionar Mercado</div>
+                                
+                                <!-- Forex -->
+                                <div class="relative group">
+                                    <button class="w-full text-left px-3.5 py-2 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400 flex items-center justify-between transition-colors">
+                                        <span>💱 Forex (Divisas)</span>
+                                        <span class="text-[10px] text-slate-500">▶</span>
+                                    </button>
+                                    <div class="hidden group-hover:block absolute right-full top-0 w-44 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl py-1 mr-1 z-50">
+                                        <button onclick="changeAsset('FX:EURUSD', 'EUR/USD (Forex)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">EUR / USD</button>
+                                        <button onclick="changeAsset('FX:GBPUSD', 'GBP/USD (Forex)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">GBP / USD</button>
+                                        <button onclick="changeAsset('FX:USDJPY', 'USD/JPY (Forex)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">USD / JPY</button>
+                                    </div>
+                                </div>
+
+                                <!-- Criptomonedas -->
+                                <div class="relative group">
+                                    <button class="w-full text-left px-3.5 py-2 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400 flex items-center justify-between transition-colors">
+                                        <span>🪙 Criptomonedas</span>
+                                        <span class="text-[10px] text-slate-500">▶</span>
+                                    </button>
+                                    <div class="hidden group-hover:block absolute right-full top-0 w-44 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl py-1 mr-1 z-50">
+                                        <button onclick="changeAsset('BINANCE:BTCUSDT', 'BTC/USDT (Cripto)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">BTC / USDT</button>
+                                        <button onclick="changeAsset('BINANCE:ETHUSDT', 'ETH/USDT (Cripto)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">ETH / USDT</button>
+                                        <button onclick="changeAsset('BINANCE:SOLUSDT', 'SOL/USDT (Cripto)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">SOL / USDT</button>
+                                    </div>
+                                </div>
+
+                                <!-- Índices Globales -->
+                                <div class="relative group">
+                                    <button class="w-full text-left px-3.5 py-2 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400 flex items-center justify-between transition-colors">
+                                        <span>📈 Índices Globales</span>
+                                        <span class="text-[10px] text-slate-500">▶</span>
+                                    </button>
+                                    <div class="hidden group-hover:block absolute right-full top-0 w-44 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl py-1 mr-1 z-50">
+                                        <button onclick="changeAsset('OANDA:SPX500USD', 'S&P 500 (Índices)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">S&P 500 (SPX)</button>
+                                        <button onclick="changeAsset('OANDA:NAS100USD', 'Nasdaq 100 (Índices)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">Nasdaq 100 (NDX)</button>
+                                        <button onclick="changeAsset('TVC:DEU40', 'DAX 40 (Índices)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">DAX 40 (GER40)</button>
+                                    </div>
+                                </div>
+
+                                <!-- Materias Primas -->
+                                <div class="relative group">
+                                    <button class="w-full text-left px-3.5 py-2 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400 flex items-center justify-between transition-colors">
+                                        <span>🛢️ Materias Primas</span>
+                                        <span class="text-[10px] text-slate-500">▶</span>
+                                    </button>
+                                    <div class="hidden group-hover:block absolute right-full top-0 w-44 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl py-1 mr-1 z-50">
+                                        <button onclick="changeAsset('OANDA:XAUUSD', 'Oro / Dólar (Commodities)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">Oro (XAUUSD)</button>
+                                        <button onclick="changeAsset('OANDA:BCOUSD', 'Petróleo Brent (Commodities)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">Petróleo (BCOUSD)</button>
+                                    </div>
+                                </div>
+
+                                <!-- Acciones -->
+                                <div class="relative group">
+                                    <button class="w-full text-left px-3.5 py-2 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400 flex items-center justify-between transition-colors">
+                                        <span>🏢 Acciones (US)</span>
+                                        <span class="text-[10px] text-slate-500">▶</span>
+                                    </button>
+                                    <div class="hidden group-hover:block absolute right-full top-0 w-44 bg-[#131A29] border border-slate-800 rounded-xl shadow-2xl py-1 mr-1 z-50">
+                                        <button onclick="changeAsset('NASDAQ:AAPL', 'Apple (Acciones)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">Apple (AAPL)</button>
+                                        <button onclick="changeAsset('NASDAQ:TSLA', 'Tesla (Acciones)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">Tesla (TSLA)</button>
+                                        <button onclick="changeAsset('NASDAQ:NVDA', 'Nvidia (Acciones)')" class="w-full text-left px-3.5 py-1.5 text-xs text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">Nvidia (NVDA)</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tradingview-widget-container flex-1 w-full h-full rounded-lg overflow-hidden">
+                        <div id="tradingview_advanced_chart" class="w-full h-full"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- MODAL DE AUTENTICACIÓN (LOGIN / REGISTRO)   -->
+    <!-- ========================================== -->
+    <div id="auth-modal" class="hidden fixed inset-0 bg-[#080B11]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-[#131A29] border border-slate-800/80 w-full max-w-sm rounded-2xl p-6 shadow-2xl relative">
+            <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-500 hover:text-slate-200 font-bold text-xs">✕</button>
             
-            // Aquí guardarías en localStorage o enviarías al servidor
-            console.log('Ajustes guardados:', { notificaciones, tema });
-            alert('¡Ajustes guardados con éxito!');
+            <!-- Pestañas de Selector (Iniciar Sesión / Registrarse) -->
+            <div class="flex border-b border-slate-800 mb-5">
+                <button id="tab-login-btn" onclick="switchTab('login')" class="flex-1 pb-2.5 text-xs font-semibold text-sky-400 border-b-2 border-sky-400 transition-all">Iniciar Sesión</button>
+                <button id="tab-register-btn" onclick="switchTab('register')" class="flex-1 pb-2.5 text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all">Registrarse</button>
+            </div>
+
+            <!-- Botón Google Común -->
+            <button onclick="loginWithGoogle()" class="w-full flex items-center justify-center gap-2.5 bg-[#1B2436] hover:bg-[#222E45] text-slate-200 border border-slate-700/60 py-2 rounded-xl text-xs font-medium transition-all mb-4">
+                <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.6 3.6 1.7 7.4l3.7 2.9C6.3 7.2 8.9 5 12 5z"/><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/><path fill="#FBBC05" d="M5.4 14.7c-.2-.7-.4-1.5-.4-2.7s.2-2 .4-2.7L1.7 6.4C.6 8.6 0 10.2 0 12s.6 3.4 1.7 5.6l3.7-2.9z"/><path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.7-2.2-6.6-5.3L1.7 15C3.6 18.8 7.5 21.4 12 21.4z"/></svg>
+                Continuar con Google
+            </button>
+
+            <div class="relative flex py-1 items-center mb-3">
+                <div class="flex-grow border-t border-slate-800"></div>
+                <span class="flex-shrink mx-3 text-slate-500 text-[10px] uppercase font-semibold">O con credenciales</span>
+                <div class="flex-grow border-t border-slate-800"></div>
+            </div>
+
+            <!-- FORMULARIO DE INICIO DE SESIÓN -->
+            <form id="form-login" onsubmit="handleAuthSubmit(event, 'login')" class="space-y-3">
+                <div>
+                    <label class="block text-[11px] font-medium text-slate-400 mb-1">Nombre de Usuario o Correo</label>
+                    <input id="login-user" type="text" required placeholder="ej. ibrah_trader" class="w-full bg-[#0B0F17] border border-slate-800/80 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-medium text-slate-400 mb-1">Contraseña</label>
+                    <input type="password" required placeholder="••••••••" class="w-full bg-[#0B0F17] border border-slate-800/80 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+                </div>
+                <button type="submit" class="w-full bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold py-2.5 rounded-lg text-xs transition-all mt-1">
+                    Iniciar Sesión
+                </button>
+            </form>
+
+            <!-- FORMULARIO DE REGISTRO -->
+            <form id="form-register" onsubmit="handleAuthSubmit(event, 'register')" class="space-y-3 hidden">
+                <div>
+                    <label class="block text-[11px] font-medium text-slate-400 mb-1">Nombre de Usuario</label>
+                    <input id="register-username" type="text" required placeholder="Tu apodo o nombre" class="w-full bg-[#0B0F17] border border-slate-800/80 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-medium text-slate-400 mb-1">Correo Electrónico</label>
+                    <input type="email" required placeholder="tu@correo.com" class="w-full bg-[#0B0F17] border border-slate-800/80 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-medium text-slate-400 mb-1">Contraseña</label>
+                    <input type="password" required placeholder="••••••••" class="w-full bg-[#0B0F17] border border-slate-800/80 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+                </div>
+                <button type="submit" class="w-full bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold py-2.5 rounded-lg text-xs transition-all mt-1">
+                    Crear Cuenta
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts de TradingView y Lógica -->
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script>
+        let tvWidget = null;
+
+        // Comprobar sesión al cargar la página
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedUser = localStorage.getItem('alpha_logged_user');
+            if (savedUser) {
+                enterDashboard(savedUser, false);
+            }
+        });
+
+        function initTradingView(symbolToLoad) {
+            document.getElementById('tradingview_advanced_chart').innerHTML = "";
+            tvWidget = new TradingView.widget({
+              "autosize": true,
+              "symbol": symbolToLoad,
+              "interval": "D",
+              "timezone": "Etc/UTC",
+              "theme": "dark",
+              "style": "1",
+              "locale": "es",
+              "enable_publishing": false,
+              "hide_side_toolbar": false,
+              "allow_symbol_change": true,
+              "calendar": false,
+              "support_host": "https://www.tradingview.com",
+              "container_id": "tradingview_advanced_chart"
+            });
+        }
+
+        function openAuthModal(mode) {
+            document.getElementById('auth-modal').classList.remove('hidden');
+            switchTab(mode);
+        }
+
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.add('hidden');
+        }
+
+        function switchTab(mode) {
+            const loginBtn = document.getElementById('tab-login-btn');
+            const registerBtn = document.getElementById('tab-register-btn');
+            const loginForm = document.getElementById('form-login');
+            const registerForm = document.getElementById('form-register');
+
+            if (mode === 'login') {
+                loginBtn.className = "flex-1 pb-2.5 text-xs font-semibold text-sky-400 border-b-2 border-sky-400 transition-all";
+                registerBtn.className = "flex-1 pb-2.5 text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all";
+                loginForm.classList.remove('hidden');
+                registerForm.classList.add('hidden');
+            } else {
+                registerBtn.className = "flex-1 pb-2.5 text-xs font-semibold text-sky-400 border-b-2 border-sky-400 transition-all";
+                loginBtn.className = "flex-1 pb-2.5 text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all";
+                registerForm.classList.remove('hidden');
+                loginForm.classList.add('hidden');
+            }
+        }
+
+        function loginWithGoogle() {
+            enterDashboard("Trader Google", true);
+        }
+
+        function handleAuthSubmit(e, type) {
+            e.preventDefault();
+            let username = "Trader";
+            if (type === 'login') {
+                username = document.getElementById('login-user').value;
+            } else {
+                username = document.getElementById('register-username').value;
+            }
+            enterDashboard(username, true);
+        }
+
+        function enterDashboard(username, saveSession = true) {
+            closeAuthModal();
+            document.getElementById('landing-view').classList.add('hidden');
+            document.getElementById('dashboard-view').classList.remove('hidden');
+            document.getElementById('user-name-display').innerText = username;
+
+            if (saveSession) {
+                localStorage.setItem('alpha_logged_user', username);
+            }
+            
+            if(!tvWidget) {
+                initTradingView("FX:EURUSD");
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('alpha_logged_user');
+            document.getElementById('dashboard-view').classList.add('hidden');
+            document.getElementById('landing-view').classList.remove('hidden');
+            tvWidget = null;
+        }
+
+        function toggleMainDropdown(id) {
+            const dropdown = document.getElementById(id);
+            dropdown.classList.toggle('hidden');
+        }
+
+        // Función para abrir/cerrar el menú de Ajustes abajo a la izquierda
+        function toggleSettingsMenu() {
+            const settingsDropdown = document.getElementById('settings-dropdown');
+            settingsDropdown.classList.toggle('hidden');
+        }
+
+        function changeAsset(symbol, assetName) {
+            document.getElementById('market-selected').innerText = assetName;
+            if(tvWidget) {
+                initTradingView(symbol);
+            }
+            document.getElementById('dashboard-dropdown').classList.add('hidden');
         }
     </script>
 </body>
